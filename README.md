@@ -1,2 +1,2 @@
 # backuptubes
-ini repo tubes daspro sebelum dapet actual repo
+jadi ini repository sementara tubes daspro sebelum dapet actual repo dari gclass
