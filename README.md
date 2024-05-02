@@ -8,9 +8,9 @@ Pesan commit (commit message) itu kayak keterangan yang perlu lo taro pas mau up
 
 Nah bikin commit messagenya gk boleh asal asalan (salah satu penilaian extra) and berikut format penulisan commit messages
 
-FORMAT= <type>: <description>
+FORMAT= (type) - (keterangan)
 
-type:
+MACAM MACAM TYPE:
 
 feat - Penambahan fitur baru
 
