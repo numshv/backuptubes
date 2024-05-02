@@ -4,6 +4,7 @@ DETAIL THINGS YANG TAKUT LUPA DIKERJAIN SO IMMA PUT IT HERE:
 2. Bikin teks cerita di awal masuk game
 3. Bikin script bagian HELP
 4. Tentuin nama game, karakter, monster dll
-5. Rapihin pathing database
 6. Bikin aturan commit messages
 7. Atur deadline each kerjaan
+8. Tambahin lanjutan login di register
+9. ubah semua nam fungsi sesuai ketentuan

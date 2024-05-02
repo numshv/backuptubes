@@ -1,3 +1,4 @@
+import os
 from sys import exit
 from time import sleep as wait
 
@@ -37,41 +38,45 @@ def help():
 # Fungsi untuk login
 def login():
     global login_state
-    email = str(input('Masukkan username: '))
+    user_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),'databases', 'user.csv')
+    username = str(input('Masukkan username: '))
     password = str(input('Masukkan password: '))
-    file = open('accounts.csv', 'r')
+    file = open(user_path, 'r')
     for line in file:
         item = csv_parser(line)
-        if email == item[0] and password == item[1]:
+        if username == item[1] and password == item[2]:
             print('Logged in successfully!')
             login_state = True
             return("")
-        elif email == item[0] and password != item[1]:
+        elif username == item[1] and password != item[2]:
             print('passwordnya salah bro, ulang yhh')
             login()
     if login_state == False:
         print("Sorry, you aren't signed up yet. Type 'SIGNUP' to create an account") #masih ke double
+        return("")
 
 # Fungsi untuk sign up
 def sign_up():
-    email = str(input('Email: '))
+    username = str(input('Username: '))
     password = str(input('Password: '))
-    file = open('accounts.csv', 'a')
-    info = '\n' + email + ',' + password
+    user_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),'databases', 'user.csv')
+    file = open(user_path, 'a')
+    info = '\n' + 'id' + ',' + username + ',' + password + ',' + 'role' + ',' + 'oc'
     file.write(info)
-    print('Do you want to log in? [Yes/No]')
-    start_over = str(input()).lower()
-    file.close()
-    if 'y' in start_over:
-        login()
-    else:
-        print('See you next time!')
-        wait(2)
-        exit(0)
+    #print('Do you want to log in? [Yes/No]')       LIHAT INI BRO
+    #start_over = str(input()).lower()
+    #file.close()
+    #if 'y' in start_over:
+    #    login()
+    #else:
+    #    print('See you next time!')
+    #    wait(2)
+    #    exit(0)
 
 def logout():
     global login_state
     login_state = False
+    print("Anda berhasil logout dari akun basudara")
 
 def exited():
     global running_state
@@ -107,5 +112,3 @@ def main():
             exited()
 
 main()
-        
-        

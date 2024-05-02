@@ -1,3 +1,4 @@
+import os
 from sys import exit
 from time import sleep as wait
 
@@ -28,67 +29,86 @@ def intro():
   \__/\  /   \___  >|____/ \___  >\____/ |__|_|  / \___  >     |__|  \____/     |   __/  \____/ |__|_ \ \___  >|__|_|  / \____/ |___|  / 
        \/        \/            \/              \/      \/                       |__|                 \/     \/       \/              \/  
 """)
+    # Mau tambahin tulisan buat akses help sama cerita awal
 
-# Fungsi untuk milih metode masuk, mau login or sign in
-def select_method():
-    select = int(input("""Ayo masuk mas mba!
-[1] LOGIN (jika sudah memiliki akun)
-[2] SIGN UP (bila belum memiliki akun)
-[3] EXIT (Enggak jadi main TT)
-"""))
-    if select == 1:
-        login()
-    elif select == 2:
-        sign_up()
-    else:
-        print('Input tidak valid')
-        select_method()
+# Fungsi untuk navigasi command
+def help():
+    pass
 
 # Fungsi untuk login
 def login():
     global login_state
-    email = str(input('Masukkan username: '))
+    user_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),'databases', 'user.csv')
+    username = str(input('Masukkan username: '))
     password = str(input('Masukkan password: '))
-    file = open('accounts.csv', 'r')
+    file = open(user_path, 'r')
     for line in file:
         item = csv_parser(line)
-        if email == item[0] and password == item[1]:
+        if username == item[1] and password == item[2]:
             print('Logged in successfully!')
             login_state = True
             return("")
-        elif email == item[0] and password != item[1]:
+        elif username == item[1] and password != item[2]:
             print('passwordnya salah bro, ulang yhh')
             login()
-    print("Sorry, you aren't signed up yet.")
+    if login_state == False:
+        print("Sorry, you aren't signed up yet. Type 'SIGNUP' to create an account") #masih ke double
+        return("")
 
 # Fungsi untuk sign up
 def sign_up():
-    email = str(input('Email: '))
+    username = str(input('Username: '))
     password = str(input('Password: '))
-    file = open('accounts.csv', 'a')
-    info = '\n' + email + ',' + password
+    user_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),'databases', 'user.csv')
+    file = open(user_path, 'a')
+    info = '\n' + 'id' + ',' + username + ',' + password + ',' + 'role' + ',' + 'oc'
     file.write(info)
-    print('Do you want to log in? [Yes/No]')
-    start_over = str(input()).lower()
-    file.close()
-    if 'y' in start_over:
-        login()
-    else:
-        print('See you next time!')
-        wait(2)
-        exit(0)
+    #print('Do you want to log in? [Yes/No]')       LIHAT INI BRO
+    #start_over = str(input()).lower()
+    #file.close()
+    #if 'y' in start_over:
+    #    login()
+    #else:
+    #    print('See you next time!')
+    #    wait(2)
+    #    exit(0)
 
+def logout():
+    global login_state
+    login_state = False
+    print("Anda berhasil logout dari akun basudara")
 
-select_method()
-
+def exited():
+    global running_state
+    print("""
+__________                     __________                  
+\______   \ ___.__.  ____      \______   \ ___.__.  ____   
+ |    |  _/<   |  |_/ __ \      |    |  _/<   |  |_/ __ \  
+ |    |   \ \___  |\  ___/      |    |   \ \___  |\  ___/  
+ |______  / / ____| \___  >     |______  / / ____| \___  > 
+        \/  \/          \/             \/  \/          \/  
+                                                            
+          """)
+    running_state == False
+    exit(0)
 
 def main():
     intro()
-    if login_state == False:
-        select_method()
-    else:
+    while running_state == True:
         operation = input(">> ")
         if operation == "LOGIN":
-            print("Anda telah Login dengan username")
+            if login_state == True:
+                print("Anda telah Login dengan username basudara")
+            else:
+                login()
+            
+        elif operation == "SIGNUP":
+            sign_up()
         
+        elif operation == "LOGOUT":
+            logout()
         
+        elif operation == "EXIT":
+            exited()
+
+main()
