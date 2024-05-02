@@ -1,0 +1,6 @@
+DETAIL THINGS YANG TAKUT LUPA DIKERJAIN SO IMMA PUT IT HERE:
+
+1. Benerin output login yang masih double
+2. Bikin teks cerita di awal masuk game
+3. Bikin script bagian HELP
+4. Tentuin nama game, karakter, monster dll
