@@ -78,10 +78,6 @@ def sign_up():
         wait(2)
         exit(0)
 
-
-select_method()
-
-
 def main():
     intro()
     if login_state == False:
@@ -90,5 +86,7 @@ def main():
         operation = input(">> ")
         if operation == "LOGIN":
             print("Anda telah Login dengan username")
+
+main()
         
         
