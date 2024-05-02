@@ -11,13 +11,21 @@ Nah bikin commit messagenya gk boleh asal asalan (salah satu penilaian extra) an
 FORMAT= <type>: <description>
 
 type:
+
 feat - Penambahan fitur baru
+
 fix - Bug fix
+
 docs - Perubahan pada dokumentasi (README, laporan, dsb)
+
 style - Formatting, penambahan type safe, dsb
+
 refactor - Refactor kode, ganti nama variable, dsb
+
 test - Penambahan/perubahan script untuk testing
+
 chore - Perubahan pada config file
+
 
 contoh:
 
