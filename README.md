@@ -24,7 +24,7 @@ Apabila hasil kerjaan kalian sudah dirasa final (tinggal gue review), tolong ren
 
 (NOTE: tapi kalian masih mau coba-coba, untuk mempermudah, sementara naro file database di folder "belum di review" juga boleh kok tapi nanti finalnya harus dipindahin ke folder database and jangan lupa benerin pathingnya.
 
-5. WAJIBBACA.txt adalah file buat nyimpen catetan terakit hal-hal yang perlu dilakuin (takut lupa mending catet disitu)
+5. kerjaan.txt adalah file buat nyimpen catetan terakit hal-hal yang perlu dilakuin (takut lupa mending catet disitu)
 
 
 
