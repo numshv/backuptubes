@@ -26,6 +26,9 @@ Apabila hasil kerjaan kalian sudah dirasa final (tinggal gue review), tolong ren
 
 5. WAJIBBACA.txt adalah file buat nyimpen catetan terakit hal-hal yang perlu dilakuin (takut lupa mending catet disitu)
 
-SEMANGAT YA GUYSSSS
 
-Kalo ada apa apa and ada yg mau di tanya langsung chat gue aja di line ya
+
+
+SEMANGAT YA GUYSSSS🔥🔥🔥
+
+Kalo ada apa apa and ada yg mau di tanya langsung chat gue aja di line ya ;)
