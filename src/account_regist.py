@@ -1,18 +1,10 @@
 import os
+from src.parser import csv_parser
 
 #STATING INITIAL STATE OF ALL GLOBAL VARIABLES
 login_state = False
 running_state = True
 
-def csv_parser(line):
-    s=[]
-    j=0
-    for i in range (len(line)):
-        if ','== line [i]:
-            s.append(line[j:i])
-            j=i+1
-    s.append (line[j:])
-    return s
 
 # Fungsi untuk login
 def login():

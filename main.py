@@ -23,5 +23,8 @@ def main():
         
         elif operation == "EXIT":
             exited()
+        
+        else:
+            print("Command tidak valid! Lupa command? ketik HELP untuk mengetahui list command")
 
 main()
