@@ -1,5 +1,3 @@
-from sys import exit
-from time import sleep as wait
 from src.account_regist import login, sign_up, logout
 from src.texts import intro, help, exited
 
