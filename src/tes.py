@@ -1,10 +1,12 @@
-arr = []
-cond = False
-while cond == False:
-    n = int(input('masukkin angka:'))
-    if n == 999:
-        cond = True
-    else: arr.append(n)
+def yesorno(text):
+    while True:
+        agreement = input(text).lower()
+        if agreement == 'y' or agreement == 'n':
+            break
+        else:
+            print('Input tidak valid!')
+    return agreement
 
-print(arr)
+tes = yesorno('lanjut? (Y/N): ')
+print(tes)
 
