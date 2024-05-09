@@ -1,5 +1,5 @@
 import os
-from src.parser import csv_parser
+from src.parsers import csv_parser
 
 #STATING INITIAL STATE OF ALL GLOBAL VARIABLES
 login_state = False

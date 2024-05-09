@@ -1,6 +1,3 @@
-import os
-from parser import csv_parser
-
 
 def yesorno(text):
     while True:
@@ -11,7 +8,7 @@ def yesorno(text):
             print('Input tidak valid!')
     return agreement
 
-def laboratory():
+def lab(monster_inventory_arr, monster_arr):
 
     # HYPOTHETICAL
     oc = 250
@@ -27,29 +24,16 @@ def laboratory():
         monster_id = []
         monster_level = [0]
 
-        monster_inventory_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)),'databases', 'monster_inventory.csv')
-        file_monster_inventory = open(monster_inventory_path, 'r')
 
-        monster_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)),'databases', 'monster.csv')
-        file_monster = open(monster_path, 'r')
-
-        i = 0
-
-        for line in file_monster_inventory:
-            file_monster.seek(0)
-            cur_monster = ''
-            stripped = line.replace('\n', '')
-            monster_inv = csv_parser(stripped)
-            if monster_inv[0] == id_player:
-                for lined in file_monster:
-                    monster = csv_parser(lined)
-                    if monster_inv[1] == monster[0]: 
-                        cur_monster = monster[1]
-                        monster_name.append(monster[1])
-                        monster_id.append(monster[0])
-                i += 1
-                print(f"{i}. {cur_monster} (Level: {monster_inv[2]})")
-                monster_level.append(int(monster_inv[2]))
+        for i in range (1, len(monster_inventory_arr)):
+            if monster_inventory_arr[i][0] == id_player:
+                for j in range (len(monster_arr)):
+                    if monster_inventory_arr[i][1] == monster_arr[j][0]: 
+                        cur_monster = monster_arr[j][1]
+                        monster_name.append(monster_arr[j][1])
+                        monster_id.append(monster_arr[j][0])
+                print(f"{i}. {cur_monster} (Level: {monster_inventory_arr[i][2]})")
+                monster_level.append(int(monster_inventory_arr[i][2]))
 
         print("\n\n========= HARGA UPSKILL =========")
         print("Level 1 -> Level 2: 200 OC\nLevel 2 -> Level 3: 300 OC\nLevel 3 -> Level 4: 600 OC\nLevel 4 -> Level 5: 950 OC")
@@ -92,5 +76,3 @@ def laboratory():
             cont = yesorno('>>> Masih mau lanjut belanja? (Y/N): ')
             if cont == 'n':
                 break
-
-laboratory()
