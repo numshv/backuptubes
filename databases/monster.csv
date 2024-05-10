@@ -1,3 +1,4 @@
 id,type,atk,def,hp
-1,python,50,50,200
-2,java,70,40,190
+1,python,20,20,100
+2,java,30,20,90
+3,jigglypuff,33,30,82
