@@ -1,7 +1,3 @@
-login_state = 0
-global_username = 'nope'
-running_state = True
-
 
 def yesorno(text):
     while True:

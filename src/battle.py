@@ -1,4 +1,6 @@
 from random import randrange
+from math import floor
+from time import sleep
 
 #ini hypothetical, harus dihapus later
 monster_arr = [[1,'python',20,20,110],[2,'java',30,20,90], [3,'jigglypuff',33,30,82]]
@@ -126,7 +128,15 @@ Level     : {player_mons_lvl}
             else:
                 if player_input == 1:
                     player_attack = player_mons_info[2] + (player_mons_info[2] * 0.01 * randrange(-30, 31))
-                    enemy_info_arr[4] = enemy_info_arr[4] - (player_attack * (100 - enemy_info_arr[3])*0.01)
+                    enemy_info_arr[4] = floor(enemy_info_arr[4] - (player_attack * (100 - enemy_info_arr[3])*0.01))
+                    print(f'\nSCHWINKKK, {player_mons_info[1]} menyerang {enemy_info_arr[1]} !!!')
+                    print(f'''
+Name        : {enemy_info_arr[1]}
+ATK Power   : {enemy_info_arr[2]}
+DEF Power   : {enemy_info_arr[3]}
+HP          : {enemy_info_arr[4]}
+Level       : {enemy_level}
+                    ''')
                     break
                 
                 elif player_input == 2:
@@ -139,24 +149,59 @@ Level     : {player_mons_lvl}
                     if potion_input != 4:
                         potion_info = item_inventory_arr[potion_input-1]
                         
-                        if potion_info[1] == 'strength':
+                        if potion_info[1] == 'strength' and potion_info[2] > 0:
                             player_mons_info[2] = player_mons_info[2] + (player_mons_info[2] * 0.05)
+                            print('done')
                         
-                        elif potion_info[1] == 'resilience':
+                        elif potion_info[1] == 'healing' and potion_info[2] > 0:
                             player_mons_info[3] = player_mons_info[3] + (player_mons_info[3] * 0.05)
+                            print('done')
                         
-                        else:
+                        elif potion_info[1] == 'resilience' and potion_info[2] > 0:
                             player_mons_info[4] = player_mons_info[4] + (base_hp_player * 0.25)
                             if player_mons_info[4] > base_hp_player:
                                 player_mons_info[4] = base_hp_player
+                            print('done')
                         break
-
                         
                 else:
                     exit(0)
         
-        print('here')
-        break
-    
+        sleep(2)
+        
+        # If menang
+        
+        if enemy_info_arr[4] <= 0:
+            oc_reward = randrange(100, 151)
+            print(f'Selamat, Anda berhasil mengalahkan monster {enemy_info_arr[1]} !!!')
+            print(f'Total OC yang didapatkan {oc_reward}')
+            return [oc_reward]
+        
+        #Bagian enemy attack
+        
+        enemy_attack = enemy_info_arr[2] + (enemy_info_arr[2] * 0.01 * randrange(-30, 31))
+        player_mons_info[4] = floor(player_mons_info[4] - (enemy_attack * (100 - player_mons_info[3])*0.01))
+        
+        print(f"""
+============ TURN {turn} ({enemy_info_arr[1]}) ============
+
+SCHWINKKK, {enemy_info_arr[1]} menyerang {player_mons_info[1]} !!!
+
+Name        : {player_mons_info[1]}
+ATK Power   : {player_mons_info[2]}
+DEF Power   : {player_mons_info[3]}
+HP          : {player_mons_info[4]}
+Level       : {player_mons_lvl}
+                """)
+        
+        # If kalah
+        
+        if player_mons_info[4] <= 0:
+            print(f'Yahhh, Anda dikalahkan monster {enemy_info_arr[1]}. Jangan menyerah, coba lagi !!!')
+            return(0)
+        
+        # If lanjut
+        
+        turn += 1
 
 battle(monster_arr, monster_inventory_arr, '007', item_inventory_arr)
