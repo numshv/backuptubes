@@ -1,11 +1,13 @@
 import os
+import user.csv
+#import isi lagi frennnn
 
 def Help():
     print ("""=========== Help ============""")
 
     global login_state
     if login_state:
-        if username=="admin":
+        if username=="admin": #ini harus disambungin ke arraynya dulu frennn
             print ("""
 Selamat datang, Admin. Berikut adalah hal-hal yang dapat kamu lakukan:
     1. Logout: Keluar dari akun yang sedang digunakan
