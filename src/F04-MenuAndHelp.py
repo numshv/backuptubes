@@ -1,13 +1,15 @@
 import os
-import user.csv
-#import isi lagi frennnn
+import parsers.py
 
-def Help():
+
+
+def Help(datauser,csv_parser,csv_toarr):
     print ("""=========== Help ============""")
 
-    global login_state
+    data = len(csv_parser)
+    for i in range (data):
     if login_state:
-        if username=="admin": #ini harus disambungin ke arraynya dulu frennn
+        if datauser: #ini harus disambungin ke arraynya dulu frennn
             print ("""
 Selamat datang, Admin. Berikut adalah hal-hal yang dapat kamu lakukan:
     1. Logout: Keluar dari akun yang sedang digunakan
