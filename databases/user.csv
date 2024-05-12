@@ -1,3 +1,4 @@
 id,username,password,role,oc
 001,tes1,tes1,role,oc
-007,tes7,tes7,role,500
+007,tes7,tes7,agent,500
+008,tes8,tes8,admin,500

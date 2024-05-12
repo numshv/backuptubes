@@ -1,17 +1,8 @@
-#STATING INITIAL STATE OF ALL GLOBAL VARIABLES
-login_state = 0
-global_username = 'nope'
-global_id = 0
-running_state = True
-
-user_arr = [['001','tes1','tes1','role',200], ['007','tes7','tes7','role',500]]
-
 
 # Fungsi untuk login
-def login(global_username):
-    global login_state
+def login(player_username, login_state, user_arr):
     if login_state == 1:
-        print(f"Anda telah Login dengan username {global_username}")
+        print(f"Anda telah Login dengan username {player_username}")
         return 'logged in'
     else:
         while True:
@@ -20,12 +11,9 @@ def login(global_username):
             for i in range (len(user_arr)):
                 if username == user_arr[i][1] and password == user_arr[i][2]:
                     print('Logged in successfully!\n')
-                    login_state = 1
-                    global_id = user_arr[i][0]
-                    return user_arr[i]
-                    break
+                    return user_arr[i] + [1]
                 elif username == user_arr[i][1] and password != user_arr[i][2]:
-                    print('passwordnya salah bro, ulang yhh\n')
+                    print('Password, silahkan ulang.\n')
                     login_state = 2
                     break
                 else:
@@ -34,20 +22,43 @@ def login(global_username):
                 break
         if login_state == 0:
             print("Sorry, you aren't signed up yet. Type 'SIGNUP' to create an account\n")
+            return 'not_signed_up'
 
 
 # Fungsi untuk sign up
-def sign_up():
-    global user_arr
-    username = str(input('Username: '))
-    password = str(input('Password: '))
-    info = ['id', username, password, 'role', 100]
-    user_arr.append(info)
+def sign_up(user_arr, player_id):
+    if player_id != 'NaN':
+        print('Anda sudah login!')
+    
+    else:
+        while True:
+            username = input('Username: ')
+            password = input('Password: ')
+            cond = True
+            
+            for i in range (len(user_arr)):
+                if user_arr[i][1] == username:
+                    print('Username sudah ada yang menggunakan, coba username lain!')
+                    cond = False
+            
+            if cond == True:
+                for i in range (len(password)):
+                    ord_letter = ord(password[i])
+                    if 57<ord_letter<65 or 45<ord_letter<48 or ord_letter< 45 or 90<ord_letter<94 or ord_letter == 96 or ord_letter>122:
+                        cond = False
+                
+                if cond == True:
+                    print(f'Anda berhasil membuat akun {username}, silahkan lanjut LOGIN untuk masuk ke dalam akun dan mulai bermain!')
+                    return['id', username, password, 'agent', 0]
+                
+                else:
+                    print('Password hanya boleh mengandung huruf, angka, strip (-), dan underscore (_), silahkan ulangi')
+        
 
-def logout(global_username, global_id):
-    global login_state
+def logout(player_username, login_state):
     if login_state == 0:
         print("Anda belum Login")
+        return 'logged_out_alr'
     else:
-        login_state = False
-        print(f"Anda berhasil logout dari akun {global_username}")
+        print(f"Anda berhasil logout dari akun {player_username}")
+        return['NaN', 'NaN', 'NaN', 'NaN', 0, 0]

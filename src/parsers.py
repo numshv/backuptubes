@@ -11,11 +11,20 @@ def csv_parser(line):
     return s
 
 def csvtoarr(file):
-    path = path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)),'databases', file)
+    path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)),'databases', file)
     user_file = open(path, 'r')
 
     arr = []
     for line in user_file:
         inp_arr = csv_parser(line.replace('\n', ''))
         arr.append(inp_arr)
+    arr.pop(0)
     return arr
+
+def load():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("folder", help="display a folder of the databases",
+                        type=str)
+    args = parser.parse_args()
+    print(args.folder)

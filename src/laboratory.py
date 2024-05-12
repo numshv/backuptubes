@@ -8,8 +8,8 @@ def yesorno(text):
             print('Input tidak valid!')
     return agreement
 
-def lab(monster_arr, monster_inventory_arr, global_oc, global_id):
-
+def lab(monster_arr, monster_inventory_arr, player_oc, global_id):
+    global_oc = int(player_oc)
     # HYPOTHETICAL
     up_price = [0, 200, 300, 600, 950]
     
@@ -23,14 +23,14 @@ def lab(monster_arr, monster_inventory_arr, global_oc, global_id):
         monster_level = [0]
 
 
-        for i in range (1, len(monster_inventory_arr)):
+        for i in range (len(monster_inventory_arr)):
             if monster_inventory_arr[i][0] == global_id:
                 for j in range (len(monster_arr)):
                     if monster_inventory_arr[i][1] == monster_arr[j][0]: 
                         cur_monster = monster_arr[j][1]
                         monster_name.append(monster_arr[j][1])
                         monster_id.append(monster_arr[j][0])
-                print(f"{i}. {cur_monster} (Level: {monster_inventory_arr[i][2]})")
+                print(f"{i+1}. {cur_monster} (Level: {monster_inventory_arr[i][2]})")
                 monster_level.append(int(monster_inventory_arr[i][2]))
 
         print("\n\n========= HARGA UPSKILL =========")
@@ -51,7 +51,7 @@ def lab(monster_arr, monster_inventory_arr, global_oc, global_id):
 
         agreement = yesorno('\n>>> Lanjutkan upgrade (Y/N): ')
 
-        if agreement == 'y' and global_oc >= transaction_price and transaction_level < 5:
+        if agreement == 'y' and global_oc >= int(transaction_price) and transaction_level < 5:
             print(f'Selamat, {monster_name[monster_up]} berhasil di-upgrade ke level {monster_level[monster_up]+1} !')
             global_oc -= transaction_price
             for i in range (len(monster_inventory_arr)):
@@ -66,15 +66,15 @@ def lab(monster_arr, monster_inventory_arr, global_oc, global_id):
             print(f'Maaf, monster yang anda pilih telah mencapai level maximum.')
             cont = yesorno('>>> Masih mau lanjut belanja? (Y/N): ')
             if cont == 'n':
-                break
+                return [global_oc, monster_inventory_arr]
         
         elif agreement == 'y' and transaction_level < 5 and global_oc < transaction_price:
             print(f'Maaf, OC anda tidak mencukupi transaksi ini ({global_oc}/{transaction_price})')
             cont = yesorno('>>> Masih mau lanjut belanja? (Y/N): ')
             if cont == 'n':
-                break
+                return [global_oc, monster_inventory_arr]
         
         else:
             cont = yesorno('>>> Masih mau lanjut belanja? (Y/N): ')
             if cont == 'n':
-                break
+                return [global_oc, monster_inventory_arr]
