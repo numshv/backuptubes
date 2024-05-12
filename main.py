@@ -2,24 +2,21 @@
 
 def main():
     
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("square", help="display a square of a given number",
-                        type=int)
-    args = parser.parse_args()
-    print(args.square)
+    from src.account_regist import login, sign_up, logout
+    from src.texts import intro, help, exited
+    from src.parsers import csvtoarr
+    from src.laboratory import lab
+    from src.battle import battle
+    import os
     
     user_arr = csvtoarr('user.csv')
     monster_inventory_arr = csvtoarr('monster_inventory.csv')
     potion_inventory_arr = csvtoarr('potion_inventory.csv')
     monster_arr = csvtoarr('monster.csv')
     
-    from src.account_regist import login, sign_up, logout
-    from src.texts import intro, help, exited
-    from src.parsers import csvtoarr
-    from src.laboratory import lab
-    from src.battle import battle
 
+    import argparse
+    
     #STATING INITIAL STATE OF ALL GLOBAL VARIABLES
     running_state = True
     global_username = 'NaN'
@@ -29,7 +26,7 @@ def main():
     running_state = True
     login_state = 0
     
-    
+    os.system("cls")
     intro()
     while running_state == True:
         operation = input(">> ")
