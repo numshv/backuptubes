@@ -16,7 +16,9 @@ def buy_item(inventory, item_type, item_id, qty, global_oc):
     print(f"Jumlah O.W.C.A. Coin-mu sekarang {global_oc}.\n")
 
     product = input(">>> Mau beli apa? (monster/potion): monster")
-    
+    if product == "monster":
+        monster_product_id = input(">>> Masukkan id monster: ")
+        
 
     item = next((i for i in items if i["id"] == item_id), None)
     if not item:
