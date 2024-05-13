@@ -1,16 +1,9 @@
-import os
-import parsers.py
-
-
-
-def Help(datauser,csv_parser,csv_toarr):
+def help(login_state, player_role):
     print ("""=========== Help ============""")
-
-    data = len(csv_parser)
-    for i in range (data):
-    if login_state:
-        if datauser: #ini harus disambungin ke arraynya dulu frennn
-            print ("""
+    
+    if login_state == 1:
+        if player_role == "admin":
+                print ("""
 Selamat datang, Admin. Berikut adalah hal-hal yang dapat kamu lakukan:
     1. Logout: Keluar dari akun yang sedang digunakan
     2. Shop_Management: Mengatur isi dari seluruh barang yang dijual di dalam shop

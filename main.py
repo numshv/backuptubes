@@ -3,17 +3,20 @@
 def main():
     
     from src.account_regist import login, sign_up, logout
-    from src.texts import intro, help, exited
+    from src.texts import intro, exited
     from src.parsers import csvtoarr
     from src.laboratory import lab
     from src.battle import battle
+    from src.help import help
+    from src.shop import shop
     import os
     
     user_arr = csvtoarr('user.csv')
     monster_inventory_arr = csvtoarr('monster_inventory.csv')
     potion_inventory_arr = csvtoarr('potion_inventory.csv')
     monster_arr = csvtoarr('monster.csv')
-    
+    monster_shop_arr = csvtoarr('monster_shop.csv')
+    item_shop_arr = csvtoarr('item_shop.csv')
 
     import argparse
     
@@ -43,9 +46,6 @@ def main():
             new_player = sign_up(user_arr, global_id)
             user_arr.append(new_player)
         
-        elif operation == "HELP":
-            help()
-        
         elif operation == "LAB": #blm integrated sama oc dan ganti level langsung
             after_lab_state = lab(monster_arr, monster_inventory_arr, global_oc, global_id)
             global_oc = after_lab_state[0]
@@ -68,11 +68,12 @@ def main():
             exited()
         
         elif operation == "CEK":
-            print(global_id, global_username, global_oc)
-            print(monster_arr)
-            print(user_arr)
-            print(monster_inventory_arr)
-            print(potion_inventory_arr)
+            print(monster_shop_arr)
+
+        elif operation == "HELP":
+            help(login_state, player_role)
+
+        
         
         else:
             print("Command tidak valid! Lupa command? ketik HELP untuk mengetahui list command")
