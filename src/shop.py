@@ -4,24 +4,24 @@ def show_items(monster_arr, item_shop_arr, monster_shop_arr):
     product_type = input(">>> Mau lihat apa? (monster/potion): ")
     if product_type == "monster":
         print("ID | Type          | ATK Power | DEF Power | HP   | Stok | Harga")
-        for i in range (len(monster_arr)):
+        for i in range (len(monster_arr)-1):
             print (f"{monster_arr[i][0]}  | {monster_arr[i][1]} | {monster_arr[i][2]} | {monster_arr[i][3]} | {monster_arr[i][4]} | {monster_shop_arr[i][1]} | {monster_shop_arr[i][2]}")
     elif product_type == "potion":
         print("ID | Type                | Stok | Harga")
         for i in range (len(item_shop_arr)):
             print(f"{i+1}  | {item_shop_arr[i][0]} | {item_shop_arr[i][1]} | {item_shop_arr[i][2]}")
     else:
-        print("Tipe item tidak valid.")
+        print("Item tidak valid, silahkan ulangi lagi.\n")
 
 # Fungsi untuk membeli item
 def buy_item(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr, global_oc):
     print(f"Jumlah O.W.C.A. Coin-mu sekarang {global_oc}.\n")
-    product = input(">>> Mau beli apa? (monster/potion): monster")
+    product = input(">>> Mau beli apa? (monster/potion): ")
 
     if product == "monster":
-        monster_product_id = input(">>> Masukkan id monster: ")
-        monster_price = monster_arr[monster_product_id][4]
-        monster_stock = monster_shop_arr[monster_product_id][1]
+        monster_product_id = int(input(">>> Masukkan id monster: "))
+        monster_price = int(monster_shop_arr[monster_product_id][2])
+        monster_stock = int(monster_shop_arr[monster_product_id][1])
 
         if monster_stock == 0:
             print("Stok tidak mencukupi.")
@@ -41,10 +41,10 @@ def buy_item(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item
                         monster_shop_arr[monster_product_id][1] -= 1
                         print(f"Berhasil membeli monster {monster_arr[monster_product_id][1]}!")
 
-    if product == "potion":
-        potion_product_id = input(">>> Masukkan id potion: ")
+    elif product == "potion":
+        potion_product_id = int(input(">>> Masukkan id potion: "))
         potion_qty = input(">>> Masukkan jumlah: ")
-        potion_price = item_shop_arr[potion_product_id][2] * potion_qty
+        potion_price = int(item_shop_arr[potion_product_id][2]) * potion_qty
 
         if potion_qty > item_shop_arr[potion_product_id][1]:
             print("Stok tidak mencukupi.")
@@ -56,9 +56,11 @@ def buy_item(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item
                 potion_inventory_arr[potion_product_id][2] += potion_qty
                 print(f"Berhasil membeli {potion_qty} {item_shop_arr[potion_product_id][1]}!")
 
+    else:
+        print("Item tidak valid, silahkan ulangi lagi.\n")
 
 # fungsi main shop
-def shop(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr):
+def shop(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr, global_oc):
     print("Irasshaimase! Selamat datang di SHOP!!")
 
     while True:
@@ -66,11 +68,15 @@ def shop(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_sho
         action = input(">>> Pilih aksi (lihat/beli/keluar): ")
 
         if action == "lihat":
-            show_items(monster_arr, item_shop_arr, monster_shop_arr )
+            show_items(monster_arr, item_shop_arr, monster_shop_arr)
 
         elif action == "beli":
-            buy_item(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr)
+            buy_item(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr, global_oc)
 
         elif action == "keluar":
             print("Mr. Yanto bilang makasih, belanja lagi ya nanti :)")
             break
+
+        else:
+            print("Aksi tidak valid! Silakan coba lagi.")
+            continue

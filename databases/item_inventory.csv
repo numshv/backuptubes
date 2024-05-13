@@ -1,4 +1,4 @@
 user_id,type,quantity
-007,strength,5
-007,resilience,5
-007,healing,5
+1,strength,5
+2,resilience,5
+3,healing,5
