@@ -1,5 +1,5 @@
 # Fungsi untuk menampilkan item
-def show_items(monster_arr, item_shop_arr, monster_shop_arr ):
+def show_items(monster_arr, item_shop_arr, monster_shop_arr):
 
     product_type = input(">>> Mau lihat apa? (monster/potion): ")
     if product_type == "monster":
@@ -14,7 +14,7 @@ def show_items(monster_arr, item_shop_arr, monster_shop_arr ):
         print("Tipe item tidak valid.")
 
 # Fungsi untuk membeli item
-def buy_item(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr):
+def buy_item(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr, global_oc):
     print(f"Jumlah O.W.C.A. Coin-mu sekarang {global_oc}.\n")
     product = input(">>> Mau beli apa? (monster/potion): monster")
 

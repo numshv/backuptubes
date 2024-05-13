@@ -74,10 +74,8 @@ def main():
             help(login_state, player_role)
 
         elif operation == "SHOP":
-            shop(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr)
+            shop(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr, global_oc)
 
-        
-        
         else:
             print("Command tidak valid! Lupa command? ketik HELP untuk mengetahui list command")
 
