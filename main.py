@@ -73,6 +73,9 @@ def main():
         elif operation == "HELP":
             help(login_state, player_role)
 
+        elif operation == "SHOP":
+            shop(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr)
+
         
         
         else:
