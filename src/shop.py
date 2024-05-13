@@ -58,7 +58,7 @@ def buy_item(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item
 
 
 # fungsi main shop
-def shop(inventory, item_type, item_id, qty, oc):
+def shop(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr):
     print("Irasshaimase! Selamat datang di SHOP!!")
 
     while True:
@@ -66,10 +66,10 @@ def shop(inventory, item_type, item_id, qty, oc):
         action = input(">>> Pilih aksi (lihat/beli/keluar): ")
 
         if action == "lihat":
-            show_items(inventory, item_type)
+            show_items(monster_arr, item_shop_arr, monster_shop_arr )
 
         elif action == "beli":
-            buy_item(inventory, item_type, item_id, qty, oc)
+            buy_item(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr)
 
         elif action == "keluar":
             print("Mr. Yanto bilang makasih, belanja lagi ya nanti :)")
