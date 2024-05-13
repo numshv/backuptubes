@@ -1,4 +1,3 @@
-
 def inventory(player_id, monster_inventory_arr, item_inventory_arr, player_oc, monster_arr):
     print(f'============ INVENTORY LIST (User ID: {player_id}) ============')
     print(f'Jumlah O.W.C.A. Coin-mu sekarang {player_oc}.')
