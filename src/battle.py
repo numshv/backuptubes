@@ -1,6 +1,7 @@
-from random import randrange
 from math import floor
 from time import sleep
+from rng import RNG
+from os import system
 
 def print_potion(item_inventory_arr, global_id):
     j=0
@@ -8,9 +9,29 @@ def print_potion(item_inventory_arr, global_id):
         if item_inventory_arr[i][0] == global_id:
             j += 1
             print(f"{j}. {item_inventory_arr[i][1]} potion (Qty: {item_inventory_arr[i][2]})")
+
+
     
 
 def battle(monster_arr:list, monster_inventory_arr:list, global_id:str, item_inventory_arr:list, oc_player:int):
+    system("cls")
+    
+    sleep(1)
+    
+    print("""
+        __________          __     __   .__                 _________  __                    __       ._. 
+        \______   \_____  _/  |_ _/  |_ |  |    ____       /   _____/_/  |_ _____  _______ _/  |_     | | 
+        |    |  _/\__  \ \   __\\   __\|  |  _/ __ \      \_____  \ \   __\\__  \ \_  __ \\   __\    | | 
+        |    |   \ / __ \_|  |   |  |  |  |__\  ___/      /        \ |  |   / __ \_|  | \/ |  |       \| 
+        |______  /(____  /|__|   |__|  |____/ \___  >    /_______  / |__|  (____  /|__|    |__|       __ 
+                \/      \/                         \/             \/             \/                    \/ 
+                                                                                                        
+          """)
+    
+    sleep(1.5)
+    
+    system("cls")
+    
     print("""
       @@                     
        @                     
@@ -29,8 +50,8 @@ def battle(monster_arr:list, monster_inventory_arr:list, global_id:str, item_inv
                                                  
 """)
     #rand range blm di ubah ke yg buatan sendiri
-    enemy_info_arr_no = monster_arr[randrange(3)]
-    enemy_level = randrange(1,3)
+    enemy_info_arr_no = monster_arr[RNG(0, len(monster_arr)-1)]
+    enemy_level = RNG(0, 5)
     
     #copy
     enemy_info_arr = enemy_info_arr_no.copy()
@@ -48,12 +69,18 @@ DEF Power : {enemy_info_arr[3]}
 HP        : {enemy_info_arr[4]}
 Level     : {enemy_level}
 
-============ MONSTER LIST ============ """)
+""")
+    
+    sleep(3)
+    
+    print('============ MONSTER LIST ============ ')
     
     monster_name = []
     monster_id = [0]
     monster_level = [0]
 
+    actual_i = 0
+    
     for i in range (len(monster_inventory_arr)):
         if monster_inventory_arr[i][0] == global_id:
             for j in range (len(monster_arr)):
@@ -61,12 +88,15 @@ Level     : {enemy_level}
                     cur_monster = monster_arr[j][1]
                     monster_name.append(monster_arr[j][1])
                     monster_id.append(monster_arr[j][0])
-            print(f"{i+1}. {cur_monster} (Level: {monster_inventory_arr[i][2]})")
+                    actual_i += 1
+            print(f"{actual_i}. {cur_monster} (Level: {monster_inventory_arr[i][2]})")
             monster_level.append(int(monster_inventory_arr[i][2]))
     
 
     player_mons_lvl = 0
     select_number = -999
+    
+    print('\nPilih monster yang akan kamu ajak bertarung!')
     
     while True:
         select_number = int(input('\n>>> Pilih monster nomor: '))
@@ -76,7 +106,8 @@ Level     : {enemy_level}
         else:
             print('Input tidak valid!')
     
-    player_mons_info_no = monster_arr[select_number-1]
+    selected_id = monster_id[select_number]
+    player_mons_info_no = monster_arr[selected_id-1]
     
     # Copy
     player_mons_info = player_mons_info_no.copy()
@@ -109,11 +140,13 @@ HP        : {player_mons_info[4]}
 Level     : {player_mons_lvl}
 """)
 
+    sleep(3)
+    
     turn = 1
     while True:
         while True: #Loop turn player
             print(f"""
-============ TURN {turn} ({player_mons_info[1]}) ============
+============ TURN {turn} ({player_mons_info[1]}) | ANDA ============
 1. Attack
 2. Use Potion
 3. Quit
@@ -129,7 +162,7 @@ Level     : {player_mons_lvl}
             
             else:
                 if player_input == 1:
-                    player_attack = player_mons_info[2] + (player_mons_info[2] * 0.01 * randrange(-30, 31))
+                    player_attack = player_mons_info[2] + (player_mons_info[2] * 0.01 * RNG(-30, 30))
                     enemy_info_arr[4] = floor(int(enemy_info_arr[4]) - (player_attack * (100 - int(enemy_info_arr[3]))*0.01))
                     print(f'\nSCHWINKKK, {player_mons_info[1]} menyerang {enemy_info_arr[1]} !!!')
                     print(f'''
@@ -139,9 +172,6 @@ DEF Power   : {enemy_info_arr[3]}
 HP          : {enemy_info_arr[4]}
 Level       : {enemy_level}
                     ''')
-                    
-                    print(enemy_info_arr)
-                    print(f'state: {monster_arr}')
                     
                     break
                 
@@ -157,17 +187,17 @@ Level       : {enemy_level}
                         
                         if potion_info[1] == 'strength' and potion_info[2] > 0:
                             player_mons_info[2] = player_mons_info[2] + (player_mons_info[2] * 0.05)
-                            print('done')
+                            print('Setelah meminum potion ini, monster anda merasa semakin kuat!')
                         
                         elif potion_info[1] == 'healing' and potion_info[2] > 0:
                             player_mons_info[3] = player_mons_info[3] + (player_mons_info[3] * 0.05)
-                            print('done')
+                            print('Setelah meminum potion ini, monster anda merasa lebih sehat!')
                         
                         elif potion_info[1] == 'resilience' and potion_info[2] > 0:
                             player_mons_info[4] = player_mons_info[4] + (base_hp_player * 0.25)
                             if player_mons_info[4] > base_hp_player:
                                 player_mons_info[4] = base_hp_player
-                            print('done')
+                            print('Setelah meminum potion ini, monster anda merasa lebih kuat!')
                         break
                         
                 else:
@@ -178,18 +208,18 @@ Level       : {enemy_level}
         # If menang
         
         if enemy_info_arr[4] <= 0:
-            oc_reward = randrange(100, 151)
+            oc_reward = RNG(50, 100)
             print(f'Selamat, Anda berhasil mengalahkan monster {enemy_info_arr[1]} !!!')
             print(f'Total OC yang didapatkan {oc_reward}')
             return oc_reward+int(oc_player)
         
         #Bagian enemy attack
         
-        enemy_attack = int(enemy_info_arr[2]) + (int(enemy_info_arr[2]) * 0.01 * randrange(-30, 31))
+        enemy_attack = int(enemy_info_arr[2]) + (int(enemy_info_arr[2]) * 0.01 * RNG(-30, 30))
         player_mons_info[4] = floor(int(player_mons_info[4]) - (enemy_attack * (100 - player_mons_info[3])*0.01))
         
         print(f"""
-============ TURN {turn} ({enemy_info_arr[1]}) ============
+============ TURN {turn} ({enemy_info_arr[1]}) | MUSUH ============
 
 SCHWINKKK, {enemy_info_arr[1]} menyerang {player_mons_info[1]} !!!
 
@@ -203,9 +233,18 @@ Level       : {player_mons_lvl}
         # If kalah
         
         if player_mons_info[4] <= 0:
-            print(f'Yahhh, Anda dikalahkan monster {enemy_info_arr[1]}. Jangan menyerah, coba lagi !!!')
+            print(f'Yahhh, Anda dikalahkan monster {enemy_info_arr[1]}. Jangan menyerah, masih ada kesempatan lain !!!')
             return int(oc_player)
         
         # If lanjut
         
         turn += 1
+        sleep(3)
+
+
+monster_inventory_arr = [['007',1,1], ['007',2,2], ['008',2,1], ['007',4,5]]
+player_id = '007'
+monster_arr = [[1,'python',20,20,110], [2,'java',30,20,90], [3,'jigglypuff',33,30,82], [4,'monsterop',100,100,500]]
+item_inventory_arr = [['007','strength',2], ['007','healing',2], ['007','resilience',1]]
+
+battle(monster_arr, monster_inventory_arr, player_id, item_inventory_arr, 500)
