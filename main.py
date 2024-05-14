@@ -9,6 +9,8 @@ def main():
     from src.battle import battle
     from src.help import help
     from src.shop import shop
+    from src.arena import arena
+    from src.rng import RNG
     import os
     
     user_arr = csvtoarr('user.csv')
@@ -54,6 +56,10 @@ def main():
         elif operation == "BATTLE":
             oc_reward = battle(monster_arr, monster_inventory_arr, global_id, potion_inventory_arr, global_oc)
             global_oc = int(oc_reward)
+        
+        elif operation == "ARENA":
+            oc_reward_arena = arena(monster_inventory_arr, global_id, monster_arr, potion_inventory_arr)
+            global_oc += oc_reward_arena
         
         elif operation == "LOGOUT":
             logout_info = logout(global_username, login_state)

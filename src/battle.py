@@ -189,15 +189,15 @@ Level       : {enemy_level}
                             player_mons_info[2] = player_mons_info[2] + (player_mons_info[2] * 0.05)
                             print('Setelah meminum potion ini, monster anda merasa semakin kuat!')
                         
-                        elif potion_info[1] == 'healing' and potion_info[2] > 0:
-                            player_mons_info[3] = player_mons_info[3] + (player_mons_info[3] * 0.05)
-                            print('Setelah meminum potion ini, monster anda merasa lebih sehat!')
-                        
                         elif potion_info[1] == 'resilience' and potion_info[2] > 0:
+                            player_mons_info[3] = player_mons_info[3] + (player_mons_info[3] * 0.05)
+                            print('Setelah meminum potion ini, monster anda merasa lebih kuat!')
+                        
+                        elif potion_info[1] == 'healing' and potion_info[2] > 0:
                             player_mons_info[4] = player_mons_info[4] + (base_hp_player * 0.25)
                             if player_mons_info[4] > base_hp_player:
                                 player_mons_info[4] = base_hp_player
-                            print('Setelah meminum potion ini, monster anda merasa lebih kuat!')
+                            print('Setelah meminum potion ini, monster anda merasa lebih sehat!')
                         break
                         
                 else:

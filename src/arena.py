@@ -1,6 +1,7 @@
 from math import floor
 from time import sleep
 from rng import RNG
+from os import system
 
 def print_potion(item_inventory_arr, global_id):
     j=0
@@ -19,22 +20,23 @@ def battle(monster_arr:list, global_id:str, item_inventory_arr:list, player_mons
     
         print(f"============= STAGE {arena_level} ============= \n")
         
+        sleep(1.5)
         
         print("""
-        @@                     
-        @                     
-        @@  @%@     @@        
-        @@@ @%@@@@@@@@        
-            @@@@@@  @%  @        
-            @@@@@@  @@  @        
-            @@%@@@@@@@@@@        
-        %%%@@@@@@@@@@         
-        @@@@@@@@@@@@@@@        
-        @@@@@@@@@@@@@@@@        
-        @@@@ @@@@@@@@@@@@@       
-    @@@@  @@@@@     @@@@      
-    @@@    @@@@       @@@@    
-    @@@    @@@@        @@@@   
+    @@                     
+    @                     
+    @@  @%@     @@        
+    @@@ @%@@@@@@@@        
+        @@@@@@  @%  @        
+        @@@@@@  @@  @        
+        @@%@@@@@@@@@@        
+    %%%@@@@@@@@@@         
+    @@@@@@@@@@@@@@@        
+    @@@@@@@@@@@@@@@@        
+    @@@@ @@@@@@@@@@@@@       
+@@@@  @@@@@     @@@@      
+@@@    @@@@       @@@@    
+@@@    @@@@        @@@@   
                                                     
     """)
         #rand range blm di ubah ke yg buatan sendiri
@@ -49,17 +51,17 @@ def battle(monster_arr:list, global_id:str, item_inventory_arr:list, player_mons
                 enemy_info_arr[i] = float(enemy_info_arr[i]) + float(enemy_info_arr[i]) * (enemy_level-1) * 0.1
         
         print(f"""
-    RAWRRR, Monster {enemy_info_arr[1]} telah muncul !!!
+RAWRRR, Monster {enemy_info_arr[1]} telah muncul !!!
 
-    Name      : {enemy_info_arr[1]}
-    ATK Power : {enemy_info_arr[2]}
-    DEF Power : {enemy_info_arr[3]}
-    HP        : {enemy_info_arr[4]}
-    Level     : {enemy_level}
+Name      : {enemy_info_arr[1]}
+ATK Power : {enemy_info_arr[2]}
+DEF Power : {enemy_info_arr[3]}
+HP        : {enemy_info_arr[4]}
+Level     : {enemy_level}
 
     """)
 
-
+        sleep(2)
         turn = 1
         while True:
             damage_diberi = 0
@@ -67,10 +69,10 @@ def battle(monster_arr:list, global_id:str, item_inventory_arr:list, player_mons
             
             while True: #Loop turn player
                 print(f"""
-    ============ TURN {turn} ({player_mons_info[1]}) ============
-    1. Attack
-    2. Use Potion
-    3. Quit
+============ TURN {turn} ({player_mons_info[1]}) | ANDA ============
+1. Attack
+2. Use Potion
+3. Quit
                     """)
                 
                 
@@ -89,16 +91,13 @@ def battle(monster_arr:list, global_id:str, item_inventory_arr:list, player_mons
                         enemy_info_arr[4] = floor(int(enemy_info_arr[4]) - (damage_diberi_cur))
                         print(f'\nSCHWINKKK, {player_mons_info[1]} menyerang {enemy_info_arr[1]} !!!')
                         print(f'''
-    Name        : {enemy_info_arr[1]}
-    ATK Power   : {enemy_info_arr[2]}
-    DEF Power   : {enemy_info_arr[3]}
-    HP          : {enemy_info_arr[4]}
-    Level       : {enemy_level}
+Name        : {enemy_info_arr[1]}
+ATK Power   : {enemy_info_arr[2]}
+DEF Power   : {enemy_info_arr[3]}
+HP          : {enemy_info_arr[4]}
+Level       : {enemy_level}
                         ''')
-                        
-                        print(enemy_info_arr)
-                        print(f'state: {monster_arr}')
-                        
+
                         break
                     
                     elif player_input == 2:
@@ -113,17 +112,17 @@ def battle(monster_arr:list, global_id:str, item_inventory_arr:list, player_mons
                             
                             if potion_info[1] == 'strength' and potion_info[2] > 0:
                                 player_mons_info[2] = player_mons_info[2] + (player_mons_info[2] * 0.05)
-                                print('done')
+                                print('Setelah meminum potion ini, monster anda merasa semakin kuat!')
                             
                             elif potion_info[1] == 'resilience' and potion_info[2] > 0:
                                 player_mons_info[3] = player_mons_info[3] + (player_mons_info[3] * 0.05)
-                                print('done')
+                                print('Setelah meminum potion ini, monster anda merasa lebih kuat!')
                             
                             elif potion_info[1] == 'healing' and potion_info[2] > 0:
                                 player_mons_info[4] = player_mons_info[4] + (base_hp_player * 0.25)
                                 if player_mons_info[4] > base_hp_player:
                                     player_mons_info[4] = base_hp_player
-                                print('done')
+                                print('Setelah meminum potion ini, monster anda merasa lebih sehat!')
                             break
                             
                     else:
@@ -135,6 +134,7 @@ def battle(monster_arr:list, global_id:str, item_inventory_arr:list, player_mons
             
             
             if enemy_info_arr[4] <= 0 and arena_level < 5:
+                sleep(2)
                 oc_reward += oc_menang[arena_level]
                 print(f'Selamat, Anda berhasil mengalahkan monster {enemy_info_arr[1]} !!!')
                 print(f'Total OC yang didapatkan pada stage ini adalah {oc_menang[arena_level]}')
@@ -142,6 +142,7 @@ def battle(monster_arr:list, global_id:str, item_inventory_arr:list, player_mons
                 break
             
             elif enemy_info_arr[4] <= 0 and arena_level == 5:
+                sleep(2)
                 oc_reward += oc_menang[arena_level]
                 print(f'Selamat, Anda berhasil mengalahkan monster {enemy_info_arr[1]} !!!')
                 print(f'Total OC yang didapatkan pada stage ini adalah {oc_menang[arena_level]}')
@@ -154,6 +155,8 @@ def battle(monster_arr:list, global_id:str, item_inventory_arr:list, player_mons
                 print(f'Jumlah stage      : 5')
                 print(f'Damage diberikan  : {damage_diberi}')
                 print(f'Damage diterima   : {damage_diterima}')
+                
+                return oc_reward
             
             #Bagian enemy attack
             
@@ -162,18 +165,20 @@ def battle(monster_arr:list, global_id:str, item_inventory_arr:list, player_mons
             damage_diterima += damage_diterima_cur
             player_mons_info[4] = floor(int(player_mons_info[4]) - (damage_diterima_cur))
             
+            sleep(2)
             print(f"""
-    ============ TURN {turn} ({enemy_info_arr[1]}) ============
+============ TURN {turn} ({enemy_info_arr[1]}) | ENEMY ============
 
-    SCHWINKKK, {enemy_info_arr[1]} menyerang {player_mons_info[1]} !!!
+SCHWINKKK, {enemy_info_arr[1]} menyerang {player_mons_info[1]} !!!
 
-    Name        : {player_mons_info[1]}
-    ATK Power   : {player_mons_info[2]}
-    DEF Power   : {player_mons_info[3]}
-    HP          : {player_mons_info[4]}
-    Level       : {player_mons_lvl}
+Name        : {player_mons_info[1]}
+ATK Power   : {player_mons_info[2]}
+DEF Power   : {player_mons_info[3]}
+HP          : {player_mons_info[4]}
+Level       : {player_mons_lvl}
                     """)
             
+            sleep(2)
             # If kalah
             
             if player_mons_info[4] <= 0:
@@ -188,7 +193,8 @@ def battle(monster_arr:list, global_id:str, item_inventory_arr:list, player_mons
                 print(f'Damage diberikan  : {damage_diberi}')
                 print(f'Damage diterima   : {damage_diterima}')
                 lose = True
-                break
+                sleep(2.5)
+                return oc_reward
                 
                 
             
@@ -197,9 +203,29 @@ def battle(monster_arr:list, global_id:str, item_inventory_arr:list, player_mons
             turn += 1
         
         if lose == True:
+            print("""
+  ________                              ________                        ._. 
+ /  _____/ _____     _____    ____      \_____  \ ___  __  ____ _______ | | 
+/   \  ___ \__  \   /     \ _/ __ \      /   |   \\  \/ /_/ __ \\_  __ \| | 
+\    \_\  \ / __ \_|  Y Y  \\  ___/     /    |    \\   / \  ___/ |  | \/ \| 
+ \______  /(____  /|__|_|  / \___  >    \_______  / \_/   \___  >|__|    __ 
+        \/      \/       \/      \/             \/            \/         \/                                                       
+                  """)
             break
 
 def arena(monster_inventory_arr, global_id, monster_arr, item_inventory_arr):
+    system("cls")
+    
+    sleep(1)
+    print("""
+   _____                                      __________                      ._. 
+  /  _  \ _______   ____    ____  _____       \____    / ____    ____    ____ | | 
+ /  /_\  \\_  __ \_/ __ \  /    \ \__  \        /     / /  _ \  /    \ _/ __ \| | 
+/    |    \|  | \/\  ___/ |   |  \ / __ \_     /     /_(  <_> )|   |  \\  ___/ \| 
+\____|__  /|__|    \___  >|___|  /(____  /    /_______ \\____/ |___|  / \___  >__ 
+        \/             \/      \/      \/             \/            \/      \/ \/ """)
+    
+    sleep(1.5)
     
     print("============ MONSTER LIST ============ ")
     
@@ -262,12 +288,14 @@ HP        : {player_mons_info[4]}
 Level     : {player_mons_lvl}
 """)
 
-    battle(monster_arr, global_id, item_inventory_arr, player_mons_info_no, player_mons_lvl)
+    sleep(2)
+    oc_reward = battle(monster_arr, global_id, item_inventory_arr, player_mons_info_no, player_mons_lvl)
+    return oc_reward
 
-monster_inventory_arr = [['007',1,1], ['007',2,2], ['008',2,1]]
-player_id = '007'
-monster_arr = [[1,'python',20,20,110], [2,'java',30,20,90], [3,'jigglypuff',33,30,82]]
-item_inventory_arr = [['007','strength',2], ['007','healing',2], ['007','resilience',1]]
+#monster_inventory_arr = [['007',1,1], ['007',2,2], ['008',2,1]]
+#player_id = '007'
+#monster_arr = [[1,'python',20,20,110], [2,'java',30,20,90], [3,'jigglypuff',33,30,82]]
+#item_inventory_arr = [['007','strength',2], ['007','healing',2], ['007','resilience',1]]
 
 
-arena(monster_inventory_arr, player_id, monster_arr, item_inventory_arr)
+#arena(monster_inventory_arr, player_id, monster_arr, item_inventory_arr)
