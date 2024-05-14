@@ -66,5 +66,5 @@ def save(user_arr, monster_inventory_arr, item_inventory_arr, monster_arr, monst
     appendcsv(monster_arr, 'monster.csv')
     appendcsv(monster_shop_arr, 'monster_shop.csv')
     appendcsv(item_shop_arr, 'item_shop.csv')
-    print('Semua perubahan telah berhasil tersimpan!')
+    print('Semua perubahan telah berhasil tersimpan!\n')
     time.sleep(2)
