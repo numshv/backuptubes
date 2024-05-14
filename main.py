@@ -49,8 +49,9 @@ def main():
         
         elif operation == "LAB": 
             after_lab_state = lab(monster_arr, monster_inventory_arr, global_oc, global_id)
-            global_oc = after_lab_state[0]
-            monster_inventory_arr = after_lab_state[1]
+            if login_state == 1:
+                global_oc = after_lab_state[0]
+                monster_inventory_arr = after_lab_state[1]
         
         elif operation == "BATTLE":
             oc_reward = battle(monster_arr, monster_inventory_arr, global_id, potion_inventory_arr, global_oc)
