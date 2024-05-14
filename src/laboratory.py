@@ -85,5 +85,5 @@ def lab(monster_arr, monster_inventory_arr, player_oc, global_id):
             else:
                 cont = yesorno('>>> Masih mau lanjut belanja? (Y/N): ')
                 if cont == 'n':
-                    print('\nSampai bertemu lagi! Sering sering belanja disini ya!')
+                    print('\nSampai bertemu lagi! Sering sering belanja disini ya!\n')
                     return [global_oc, monster_inventory_arr]

@@ -214,83 +214,88 @@ Level       : {player_mons_lvl}
             break
 
 def arena(monster_inventory_arr, global_id, monster_arr, item_inventory_arr):
-    system("cls")
+    if global_id == 'NaN':
+        print('Anda belum login!, silahkan ketik perintah LOGIN untuk login ke akun anda\n')
     
-    sleep(1)
-    print("""
-   _____                                      __________                      ._. 
-  /  _  \ _______   ____    ____  _____       \____    / ____    ____    ____ | | 
- /  /_\  \\_  __ \_/ __ \  /    \ \__  \        /     / /  _ \  /    \ _/ __ \| | 
-/    |    \|  | \/\  ___/ |   |  \ / __ \_     /     /_(  <_> )|   |  \\  ___/ \| 
-\____|__  /|__|    \___  >|___|  /(____  /    /_______ \\____/ |___|  / \___  >__ 
-        \/             \/      \/      \/             \/            \/      \/ \/ """)
-    
-    sleep(1.5)
-    
-    print("============ MONSTER LIST ============ ")
-    
-    monster_name = []
-    monster_id = [0]
-    monster_level = [0]
+    else:
+        
+        system("cls")
+        
+        sleep(1)
+        print("""
+    _____                                      __________                      ._. 
+    /  _  \ _______   ____    ____  _____       \____    / ____    ____    ____ | | 
+    /  /_\  \\_  __ \_/ __ \  /    \ \__  \        /     / /  _ \  /    \ _/ __ \| | 
+    /    |    \|  | \/\  ___/ |   |  \ / __ \_     /     /_(  <_> )|   |  \\  ___/ \| 
+    \____|__  /|__|    \___  >|___|  /(____  /    /_______ \\____/ |___|  / \___  >__ 
+            \/             \/      \/      \/             \/            \/      \/ \/ """)
+        
+        sleep(1.5)
+        
+        print("============ MONSTER LIST ============ ")
+        
+        monster_name = []
+        monster_id = [0]
+        monster_level = [0]
 
-    for i in range (len(monster_inventory_arr)):
-        if monster_inventory_arr[i][0] == global_id:
-            for j in range (len(monster_arr)):
-                if monster_inventory_arr[i][1] == monster_arr[j][0]: 
-                    cur_monster = monster_arr[j][1]
-                    monster_name.append(monster_arr[j][1])
-                    monster_id.append(monster_arr[j][0])
-            print(f"{i+1}. {cur_monster} (Level: {monster_inventory_arr[i][2]})")
-            monster_level.append(int(monster_inventory_arr[i][2]))
-    
+        for i in range (len(monster_inventory_arr)):
+            if monster_inventory_arr[i][0] == global_id:
+                for j in range (len(monster_arr)):
+                    if monster_inventory_arr[i][1] == monster_arr[j][0]: 
+                        cur_monster = monster_arr[j][1]
+                        monster_name.append(monster_arr[j][1])
+                        monster_id.append(monster_arr[j][0])
+                print(f"{i+1}. {cur_monster} (Level: {monster_inventory_arr[i][2]})")
+                monster_level.append(int(monster_inventory_arr[i][2]))
+        
 
-    player_mons_lvl = 0
-    select_number = -999
-    
-    while True:
-        select_number = int(input('\n>>> Pilih monster nomor: '))
-        if select_number <= len(monster_name):
-            player_mons_lvl = monster_level[select_number]
-            break
-        else:
-            print('Input tidak valid!')
-    
-    player_mons_info_no = monster_arr[select_number-1]
-    
-    # Copy
-    player_mons_info = player_mons_info_no.copy()
-    
-    # Penyesuaian level figthing monster
-    if player_mons_lvl != 1:
-        for i in range(2, 5):
-            player_mons_info[i] = int(float(player_mons_info[i]) + float(player_mons_info[i]) * float((player_mons_lvl-1)) * 0.1)
-    
-    print(f"""
+        player_mons_lvl = 0
+        select_number = -999
+        
+        while True:
+            select_number = int(input('\n>>> Pilih monster nomor: '))
+            if select_number <= len(monster_name):
+                player_mons_lvl = monster_level[select_number]
+                break
+            else:
+                print('Input tidak valid!')
+        
+        player_mons_info_no = monster_arr[select_number-1]
+        
+        # Copy
+        player_mons_info = player_mons_info_no.copy()
+        
+        # Penyesuaian level figthing monster
+        if player_mons_lvl != 1:
+            for i in range(2, 5):
+                player_mons_info[i] = int(float(player_mons_info[i]) + float(player_mons_info[i]) * float((player_mons_lvl-1)) * 0.1)
+        
+        print(f"""
 
-          /\----/\_   
-         /         \   /|
-        |  | O    O | / |
-        |  | .vvvvv.|/  /
-       /   | |     |   /
-      /    | `^^^^^   /
-     | /|  |         /
-      / |    ___    |
-         \  |   |   |
-         |  |   |   |
-          \._\   \._\ 
+            /\----/\_   
+            /         \   /|
+            |  | O    O | / |
+            |  | .vvvvv.|/  /
+        /   | |     |   /
+        /    | `^^^^^   /
+        | /|  |         /
+        / |    ___    |
+            \  |   |   |
+            |  |   |   |
+            \._\   \._\ 
 
-RAWRRR, Agent X mengeluarkan monster {player_mons_info[1]} !!!
+    RAWRRR, Agent X mengeluarkan monster {player_mons_info[1]} !!!
 
-Name      : {player_mons_info[1]}
-ATK Power : {player_mons_info[2]}
-DEF Power : {player_mons_info[3]}
-HP        : {player_mons_info[4]}
-Level     : {player_mons_lvl}
-""")
+    Name      : {player_mons_info[1]}
+    ATK Power : {player_mons_info[2]}
+    DEF Power : {player_mons_info[3]}
+    HP        : {player_mons_info[4]}
+    Level     : {player_mons_lvl}
+    """)
 
-    sleep(2)
-    oc_reward = battle(monster_arr, global_id, item_inventory_arr, player_mons_info_no, player_mons_lvl)
-    return oc_reward
+        sleep(2)
+        oc_reward = battle(monster_arr, global_id, item_inventory_arr, player_mons_info_no, player_mons_lvl)
+        return oc_reward
 
 #monster_inventory_arr = [['007',1,1], ['007',2,2], ['008',2,1]]
 #player_id = '007'
