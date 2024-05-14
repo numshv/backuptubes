@@ -44,8 +44,10 @@ def main():
                 login_state = user_info[5]
             
         elif operation == "REGISTER":
-            new_player = sign_up(user_arr, global_id)
-            user_arr.append(new_player)
+            new_player = sign_up(user_arr, global_id, monster_arr)
+            if login_state == 0:
+                user_arr.append(new_player['user'])
+                monster_inventory_arr.append(new_player['mons_inv'])
         
         elif operation == "LAB": 
             after_lab_state = lab(monster_arr, monster_inventory_arr, global_oc, global_id)
@@ -74,7 +76,8 @@ def main():
             exited()
         
         elif operation == "CEK":
-            print(monster_shop_arr)
+            print(user_arr)
+            print(monster_inventory_arr)
 
         elif operation == "HELP":
             help(login_state, player_role)

@@ -11,7 +11,7 @@ def login(player_username, login_state, user_arr):
             password = str(input('Masukkan password: '))
             for i in range (len(user_arr)):
                 if username == user_arr[i][1] and password == user_arr[i][2]:
-                    print(f'Anda berhasil login ke akun {username}\n')
+                    print(f'\nSelamat datang agent {username}, Anda berhasil login ke akun anda.\n')
                     return user_arr[i] + [1]
                 elif username == user_arr[i][1] and password != user_arr[i][2]:
                     print('Password salah, silahkan ulang.\n')
@@ -52,19 +52,20 @@ def sign_up(user_arr, player_id, monster_arr):
                         cond = False
                 
                 if cond == True:
-                    print(f'Anda berhasil membuat akun {username}, silahkan lanjut LOGIN untuk masuk ke dalam akun dan mulai bermain!\n')
-                    print('Silahkan pilih salah satu monster sebagai monster awalmu.')
+                    print('\nSilahkan pilih salah satu monster sebagai monster awalmu.')
                     for i in range (len(monster_arr)):
                         print(f'{i+1}. {monster_arr[i][1]}')
                     while True:
-                        monster_pick = int(input('>> Pilih monster nomor?: '))
+                        print('\n')
+                        monster_pick = int(input('>>> Pilih monster nomor?: '))
                         if monster_pick <= len(monster_arr):
                             break
                         else:
                             print('Input tidak valid!')
-                    picked_monster = monster_arr[monster_pick-1]
+                    picked_monster = monster_arr[monster_pick-1][0]
                     add_user_arr = [len(user_arr)+1, username, password, 'agent', 0]
                     add_mons_inv_arr = [len(user_arr)+1, picked_monster, 1]
+                    print(f'Anda berhasil membuat akun {username}, silahkan lanjut LOGIN untuk masuk ke dalam akun dan mulai bermain!\n')
                     return {'user': add_user_arr, 'mons_inv': add_mons_inv_arr}
                 
                 else:
@@ -73,8 +74,8 @@ def sign_up(user_arr, player_id, monster_arr):
 
 def logout(player_username, login_state):
     if login_state == 0:
-        print("Anda belum Login")
+        print("Anda belum Login\n")
         return 'logged_out_alr'
     else:
-        print(f"Anda berhasil logout dari akun {player_username}")
+        print(f"Anda berhasil logout dari akun {player_username}\n")
         return['NaN', 'NaN', 'NaN', 'NaN', 0, 0]
