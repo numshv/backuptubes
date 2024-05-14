@@ -31,6 +31,9 @@ def sign_up(user_arr, player_id):
         print('Anda sudah login!')
     
     else:
+        print('\n=============== REGISTER ===============\n')
+        print('Username yang dimasukkan harus unik')
+        print('Password hanya dapat mengandung huruf, angka, strip(-), dan underscore(_)\n')
         while True:
             username = input('Username: ')
             password = input('Password: ')
@@ -38,7 +41,7 @@ def sign_up(user_arr, player_id):
             
             for i in range (len(user_arr)):
                 if user_arr[i][1] == username:
-                    print('Username sudah ada yang menggunakan, coba username lain!')
+                    print('Username sudah ada yang menggunakan, coba username lain!\n')
                     cond = False
             
             if cond == True:
@@ -48,11 +51,11 @@ def sign_up(user_arr, player_id):
                         cond = False
                 
                 if cond == True:
-                    print(f'Anda berhasil membuat akun {username}, silahkan lanjut LOGIN untuk masuk ke dalam akun dan mulai bermain!')
+                    print(f'Anda berhasil membuat akun {username}, silahkan lanjut LOGIN untuk masuk ke dalam akun dan mulai bermain!\n')
                     return['id', username, password, 'agent', 0]
                 
                 else:
-                    print('Password hanya boleh mengandung huruf, angka, strip (-), dan underscore (_), silahkan ulangi')
+                    print('Password hanya boleh mengandung huruf, angka, strip (-), dan underscore (_), silahkan ulangi\n')
         
 
 def logout(player_username, login_state):

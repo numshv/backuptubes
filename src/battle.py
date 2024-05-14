@@ -1,6 +1,6 @@
 from math import floor
 from time import sleep
-from rng import RNG
+from src.rng import RNG
 from os import system
 
 def print_potion(item_inventory_arr, global_id):
@@ -241,10 +241,3 @@ Level       : {player_mons_lvl}
         turn += 1
         sleep(3)
 
-
-monster_inventory_arr = [['007',1,1], ['007',2,2], ['008',2,1], ['007',4,5]]
-player_id = '007'
-monster_arr = [[1,'python',20,20,110], [2,'java',30,20,90], [3,'jigglypuff',33,30,82], [4,'monsterop',100,100,500]]
-item_inventory_arr = [['007','strength',2], ['007','healing',2], ['007','resilience',1]]
-
-battle(monster_arr, monster_inventory_arr, player_id, item_inventory_arr, 500)

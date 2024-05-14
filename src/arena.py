@@ -1,6 +1,6 @@
 from math import floor
 from time import sleep
-from rng import RNG
+from src.rng import RNG
 from os import system
 
 def print_potion(item_inventory_arr, global_id):

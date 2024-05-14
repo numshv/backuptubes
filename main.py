@@ -4,13 +4,12 @@ def main():
     
     from src.account_regist import login, sign_up, logout
     from src.texts import intro, exited
-    from src.parsers import csvtoarr
+    from src.parsers import csvtoarr, RNG
     from src.laboratory import lab
     from src.battle import battle
     from src.help import help
     from src.shop import shop
     from src.arena import arena
-    from src.rng import RNG
     import os
     
     user_arr = csvtoarr('user.csv')
@@ -44,7 +43,7 @@ def main():
                 player_role = user_info[3]
                 login_state = user_info[5]
             
-        elif operation == "SIGNUP":
+        elif operation == "REGISTER":
             new_player = sign_up(user_arr, global_id)
             user_arr.append(new_player)
         
@@ -83,6 +82,6 @@ def main():
             shop(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr, global_oc)
 
         else:
-            print("Command tidak valid! Lupa command? ketik HELP untuk mengetahui list command")
+            print("Command tidak valid! Lupa command? ketik HELP untuk mengetahui list command\n")
 
 main()
