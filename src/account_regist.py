@@ -1,5 +1,8 @@
 
 # Fungsi untuk login
+
+        
+
 def login(player_username, login_state, user_arr):
     if login_state == 1:
         print(f"Anda telah Login dengan username {player_username}\n")
@@ -79,3 +82,6 @@ def logout(player_username, login_state):
     else:
         print(f"Anda berhasil logout dari akun {player_username}\n")
         return['NaN', 'NaN', 'NaN', 'NaN', 0, 0]
+
+#def save(user_arr, monster_inventory_arr, item_inventory_arr, monster_arr, monster_shop_arr, item_shop_arr):
+    
