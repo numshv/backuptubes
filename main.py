@@ -23,11 +23,10 @@ def main():
     
     #STATING INITIAL STATE OF ALL GLOBAL VARIABLES
     running_state = True
-    global_username = 'NaN'
-    global_id = 'NaN'
-    global_oc = 0
+    player_username = 'NaN'
+    player_id = 'NaN'
+    player_oc = 0
     player_role = 'NaN'
-    running_state = True
     login_state = 0
     
     os.system("cls")
@@ -35,40 +34,40 @@ def main():
     while running_state == True:
         operation = input(">> ")
         if operation == "LOGIN": 
-            user_info = login(global_username, login_state, user_arr)
+            user_info = login(player_username, login_state, user_arr)
             if user_info != 'logged in' and user_info != 'not_signed_up':
-                global_username = user_info[1]
-                global_id = user_info[0]
-                global_oc = user_info[4]
+                player_username = user_info[1]
+                player_id = user_info[0]
+                player_oc = user_info[4]
                 player_role = user_info[3]
                 login_state = user_info[5]
             
         elif operation == "REGISTER":
-            new_player = sign_up(user_arr, global_id, monster_arr)
+            new_player = sign_up(user_arr, player_id, monster_arr)
             if login_state == 0:
                 user_arr.append(new_player['user'])
                 monster_inventory_arr.append(new_player['mons_inv'])
         
         elif operation == "LAB": 
-            after_lab_state = lab(monster_arr, monster_inventory_arr, global_oc, global_id)
+            after_lab_state = lab(monster_arr, monster_inventory_arr, player_oc, player_id)
             if login_state == 1:
-                global_oc = after_lab_state[0]
+                player_oc = after_lab_state[0]
                 monster_inventory_arr = after_lab_state[1]
         
         elif operation == "BATTLE":
-            oc_reward = battle(monster_arr, monster_inventory_arr, global_id, potion_inventory_arr, global_oc)
-            global_oc = int(oc_reward)
+            oc_reward = battle(monster_arr, monster_inventory_arr, player_id, potion_inventory_arr, player_oc)
+            player_oc = int(oc_reward)
         
         elif operation == "ARENA":
-            oc_reward_arena = arena(monster_inventory_arr, global_id, monster_arr, potion_inventory_arr)
-            global_oc += oc_reward_arena
+            oc_reward_arena = arena(monster_inventory_arr, player_id, monster_arr, potion_inventory_arr)
+            player_oc += oc_reward_arena
         
         elif operation == "LOGOUT":
-            logout_info = logout(global_username, login_state)
+            logout_info = logout(player_username, login_state)
             if logout_info != 'logged_out_alr':
-                global_username = logout_info[1]
-                global_id = logout_info[0]
-                global_oc = logout_info[4]
+                player_username = logout_info[1]
+                player_id = logout_info[0]
+                player_oc = logout_info[4]
                 player_role = logout_info[3]
                 login_state = logout_info[5]
         
@@ -83,7 +82,7 @@ def main():
             help(login_state, player_role)
 
         elif operation == "SHOP":
-            shop(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr, global_oc)
+            shop(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr, player_oc)
 
         else:
             print("Command tidak valid! Lupa command? ketik HELP untuk mengetahui list command\n")
