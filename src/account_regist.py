@@ -2,7 +2,7 @@
 # Fungsi untuk login
 def login(player_username, login_state, user_arr):
     if login_state == 1:
-        print(f"Anda telah Login dengan username {player_username}")
+        print(f"Anda telah Login dengan username {player_username}\n")
         return 'logged in'
     else:
         print('\n=============== LOGIN ===============\n')
