@@ -4,7 +4,7 @@ def main():
     
     from src.account_regist import login, sign_up, logout
     from src.texts import intro, exited
-    from src.parsers import csvtoarr, RNG
+    from src.parsers import csvtoarr, save
     from src.laboratory import lab
     from src.battle import battle
     from src.help import help
@@ -14,7 +14,7 @@ def main():
     
     user_arr = csvtoarr('user.csv')
     monster_inventory_arr = csvtoarr('monster_inventory.csv')
-    potion_inventory_arr = csvtoarr('potion_inventory.csv')
+    item_inventory_arr = csvtoarr('potion_inventory.csv')
     monster_arr = csvtoarr('monster.csv')
     monster_shop_arr = csvtoarr('monster_shop.csv')
     item_shop_arr = csvtoarr('item_shop.csv')
@@ -47,6 +47,9 @@ def main():
             if login_state == 0:
                 user_arr.append(new_player['user'])
                 monster_inventory_arr.append(new_player['mons_inv'])
+                item_inventory_arr.append([new_player['user'][0], 'strength', 0])
+                item_inventory_arr.append([new_player['user'][0], 'resilience', 0])
+                item_inventory_arr.append([new_player['user'][0], 'healing', 0])
         
         elif operation == "LAB": 
             after_lab_state = lab(monster_arr, monster_inventory_arr, player_oc, player_id)
@@ -55,11 +58,11 @@ def main():
                 monster_inventory_arr = after_lab_state[1]
         
         elif operation == "BATTLE":
-            oc_reward = battle(monster_arr, monster_inventory_arr, player_id, potion_inventory_arr, player_oc)
+            oc_reward = battle(monster_arr, monster_inventory_arr, player_id, item_inventory_arr, player_oc)
             player_oc = int(oc_reward)
         
         elif operation == "ARENA":
-            oc_reward_arena = arena(monster_inventory_arr, player_id, monster_arr, potion_inventory_arr)
+            oc_reward_arena = arena(monster_inventory_arr, player_id, monster_arr, item_inventory_arr)
             player_oc += oc_reward_arena
         
         elif operation == "LOGOUT":
@@ -77,13 +80,17 @@ def main():
         elif operation == "CEK":
             print(user_arr)
             print(monster_inventory_arr)
+            print(monster_arr)
 
         elif operation == "HELP":
             help(login_state, player_role)
 
         elif operation == "SHOP":
-            shop(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr, player_oc)
+            shop(monster_inventory_arr, item_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr, player_oc)
 
+        elif operation == "SAVE":
+            save(user_arr, monster_inventory_arr, item_inventory_arr, monster_arr, monster_shop_arr, item_shop_arr)
+        
         else:
             print("Command tidak valid! Lupa command? ketik HELP untuk mengetahui list command\n")
 
