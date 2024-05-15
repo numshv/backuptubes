@@ -29,7 +29,7 @@ def load():
                         type=str)
     args = parser.parse_args()
     
-    if args != 'databases':
+    if args != 'data':
         print("Folder doesn't exits")
     
     else:

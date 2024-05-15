@@ -20,3 +20,6 @@ def RNG(min_num, max_num):
     scaled = min_num + next(lcg) % (max_num - min_num + 1)
     return scaled
 
+for i in range(5):
+    print(RNG(-100, 100))
+
