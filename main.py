@@ -4,16 +4,18 @@ def main():
     
     from src.account_regist import login, sign_up, logout
     from src.texts import intro, exited
-    from src.parsers import csvtoarr
+    from src.parsers import csvtoarr, save
     from src.laboratory import lab
     from src.battle import battle
     from src.help import help
     from src.shop import shop
+    from src.arena import arena
+    from src.monstermanagement import monster_management
     import os
     
     user_arr = csvtoarr('user.csv')
     monster_inventory_arr = csvtoarr('monster_inventory.csv')
-    potion_inventory_arr = csvtoarr('potion_inventory.csv')
+    item_inventory_arr = csvtoarr('potion_inventory.csv')
     monster_arr = csvtoarr('monster.csv')
     monster_shop_arr = csvtoarr('monster_shop.csv')
     item_shop_arr = csvtoarr('item_shop.csv')
@@ -22,61 +24,90 @@ def main():
     
     #STATING INITIAL STATE OF ALL GLOBAL VARIABLES
     running_state = True
-    global_username = 'NaN'
-    global_id = 'NaN'
-    global_oc = 0
+    player_username = 'NaN'
+    player_id = 'NaN'
+    player_oc = 0
     player_role = 'NaN'
-    running_state = True
     login_state = 0
     
     os.system("cls")
     intro()
     while running_state == True:
         operation = input(">> ")
-        if operation == "LOGIN": 
-            user_info = login(global_username, login_state, user_arr)
+        if operation == "LOGIN": #checked
+            user_info = login(player_username, login_state, user_arr)
             if user_info != 'logged in' and user_info != 'not_signed_up':
-                global_username = user_info[1]
-                global_id = user_info[0]
-                global_oc = user_info[4]
+                player_username = user_info[1]
+                player_id = user_info[0]
+                player_oc = user_info[4]
                 player_role = user_info[3]
                 login_state = user_info[5]
             
-        elif operation == "SIGNUP":
-            new_player = sign_up(user_arr, global_id)
-            user_arr.append(new_player)
+        elif operation == "REGISTER": #checked
+            new_player = sign_up(user_arr, player_id, monster_arr)
+            if login_state == 0:
+                user_arr.append(new_player['user'])
+                monster_inventory_arr.append(new_player['mons_inv'])
+                item_inventory_arr.append([new_player['user'][0], 'strength', 0])
+                item_inventory_arr.append([new_player['user'][0], 'resilience', 0])
+                item_inventory_arr.append([new_player['user'][0], 'healing', 0])
         
-        elif operation == "LAB": 
-            after_lab_state = lab(monster_arr, monster_inventory_arr, global_oc, global_id)
-            global_oc = after_lab_state[0]
-            monster_inventory_arr = after_lab_state[1]
+        elif operation == "LAB": #checked
+            after_lab_state = lab(monster_arr, monster_inventory_arr, player_oc, player_id)
+            if login_state == 1:
+                player_oc = after_lab_state[0]
+                monster_inventory_arr = after_lab_state[1]
         
         elif operation == "BATTLE":
-            oc_reward = battle(monster_arr, monster_inventory_arr, global_id, potion_inventory_arr, global_oc)
-            global_oc = int(oc_reward)
+            if login_state == 1:
+                oc_reward = battle(monster_arr, monster_inventory_arr, player_id, item_inventory_arr, player_oc)
+                player_oc = int(oc_reward)
+                print('Anda telah kembali di halaman utama OWCA, ketik "HELP" Kalau lupa command!\n')
+            else:
+                print('Anda belum login!\n')
         
-        elif operation == "LOGOUT":
-            logout_info = logout(global_username, login_state)
+        
+        elif operation == "ARENA":
+            if login_state == 1:
+                oc_reward_arena = arena(monster_inventory_arr, player_id, monster_arr, item_inventory_arr)
+                player_oc += oc_reward_arena
+            else:
+                print('Anda belum login!\n')
+        
+        elif operation == "LOGOUT":#checked
+            logout_info = logout(player_username, login_state)
             if logout_info != 'logged_out_alr':
-                global_username = logout_info[1]
-                global_id = logout_info[0]
-                global_oc = logout_info[4]
+                player_username = logout_info[1]
+                player_id = logout_info[0]
+                player_oc = logout_info[4]
                 player_role = logout_info[3]
                 login_state = logout_info[5]
         
-        elif operation == "EXIT":
+        elif operation == "EXIT": #checked
             exited()
         
         elif operation == "CEK":
-            print(monster_shop_arr)
+            print(user_arr)
+            print(monster_inventory_arr)
+            print(monster_arr)
+            print(item_inventory_arr)
+            print(player_role)
+            print(player_id)
+            print(player_username)
 
-        elif operation == "HELP":
+        elif operation == "HELP": #checked
             help(login_state, player_role)
 
         elif operation == "SHOP":
-            shop(monster_inventory_arr, potion_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr, global_oc)
+            shop(monster_inventory_arr, item_inventory_arr, monster_shop_arr, item_shop_arr, monster_arr, player_oc)
 
-        else:
-            print("Command tidak valid! Lupa command? ketik HELP untuk mengetahui list command")
+        elif operation == "MONSTER_MANAGE": #checked
+            monster_management(monster_arr, player_role)
+        
+        elif operation == "SAVE": #checked
+            save(user_arr, monster_inventory_arr, item_inventory_arr, monster_arr, monster_shop_arr, item_shop_arr)
+        
+        else: #checked
+            print("Command tidak valid! Lupa command? ketik HELP untuk mengetahui list command\n")
 
 main()

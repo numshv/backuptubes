@@ -2,4 +2,9 @@ id,type,atk,def,hp
 1,python,20,20,110
 2,java,30,20,90
 3,jigglypuff,33,30,82
+<<<<<<< HEAD
 4,bajawa,5,99,200
+=======
+4,monsterop,100,100,500
+5,miao,29,28,90
+>>>>>>> 8a260492d5863f10745a2da556092c068ad3d535
