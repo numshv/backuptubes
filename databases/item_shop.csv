@@ -1,11 +1,4 @@
-<<<<<<< HEAD
 type,stock,price
 strenght potion, 10, 100
 resilience potion, 10, 100
 healing potion, 10, 100
-=======
-id,type,stock,price
-1,strength, 10, 100
-2,resilience, 10, 100
-3,healing, 10, 100
->>>>>>> 8a260492d5863f10745a2da556092c068ad3d535
