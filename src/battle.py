@@ -16,7 +16,7 @@ def print_potion(item_inventory_arr, global_id):
 def battle(monster_arr:list, monster_inventory_arr:list, global_id:str, item_inventory_arr:list, oc_player:int):
     if global_id == 'NaN':
         print('Anda belum login!, silahkan ketik perintah LOGIN untuk login ke akun anda\n')
-    
+    # if role admin blm dibikin
     else:
         
         system("cls")
