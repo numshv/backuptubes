@@ -1,4 +1,4 @@
 type,stock,price
-strenght, 10, 100
-resilience, 10, 100
-healing, 10, 100
+strenght potion, 10, 100
+resilience potion, 10, 100
+healing potion, 10, 100
