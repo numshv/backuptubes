@@ -347,9 +347,6 @@ def shop_management(login_state, player_role, monster_shop_arr:list, item_shop_a
                     break
                 else:
                     print('Input tidak valid!\n')
-                                
-                        
-                        
         
         elif player_input == 'keluar':
             print('Sampai jumpa kembali di shop management!')

@@ -1,4 +1,5 @@
 import os
+import sys
 def csv_parser(line):
     s=[]
     j=0
@@ -27,18 +28,20 @@ def load():
     parser = argparse.ArgumentParser()
     parser.add_argument("folder", help="display a folder of the databases",
                         type=str)
-    args = parser.parse_args()
+    print('here')
+    sys.stderr.write(f'Tidak ada nama folder yang diberikan\n')
+    args = parser.parse_args().folder
     
     if args != 'data':
         print("Folder doesn't exits")
-    
+
     else:
         all_files = []
         main_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)), args.folder)
         for filename in os.listdir(args.folder):
             cur_csv = csvtoarr(main_path, filename)
             all_files.append(cur_csv)
-        return all_files, 
+        return all_files
 
 
-load()
+print(load())
