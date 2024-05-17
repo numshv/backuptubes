@@ -1,10 +1,19 @@
+import argparse
+import os
+from time import sleep
+def checker(folder):
+    data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'databases')
+    isExist =  os.path.exists(os.path.join(data_path, folder))
+    if isExist == False:
+        print(data_path)
+        raise argparse.ArgumentTypeError('Folder tidak ditemukan')
+    return folder
 
 
-def main():
-    
-    from src.account_regist import login, sign_up, logout
+def main(folder):
+    from src.account_regist import login, sign_up, logout, save
     from src.texts import intro, exited
-    from src.parsers import csvtoarr, save
+    from src.parsers import csvtoarr
     from src.laboratory import lab
     from src.battle import battle
     from src.help import help
@@ -13,14 +22,12 @@ def main():
     from src.monstermanagement import monster_management
     import os
     
-    user_arr = csvtoarr('user.csv')
-    monster_inventory_arr = csvtoarr('monster_inventory.csv')
-    item_inventory_arr = csvtoarr('potion_inventory.csv')
-    monster_arr = csvtoarr('monster.csv')
-    monster_shop_arr = csvtoarr('monster_shop.csv')
-    item_shop_arr = csvtoarr('item_shop.csv')
-
-    import argparse
+    user_arr = csvtoarr(folder, 'user.csv')
+    monster_inventory_arr = csvtoarr(folder, 'monster_inventory.csv')
+    item_inventory_arr = csvtoarr(folder, 'potion_inventory.csv')
+    monster_arr = csvtoarr(folder, 'monster.csv')
+    monster_shop_arr = csvtoarr(folder, 'monster_shop.csv')
+    item_shop_arr = csvtoarr(folder, 'item_shop.csv')
     
     #STATING INITIAL STATE OF ALL GLOBAL VARIABLES
     running_state = True
@@ -105,9 +112,17 @@ def main():
             monster_management(monster_arr, player_role)
         
         elif operation == "SAVE": #checked
-            save(user_arr, monster_inventory_arr, item_inventory_arr, monster_arr, monster_shop_arr, item_shop_arr)
+            save(item_inventory_arr, item_shop_arr, monster_inventory_arr, monster_shop_arr, monster_arr, item_inventory_arr, user_arr)
         
         else: #checked
             print("Command tidak valid! Lupa command? ketik HELP untuk mengetahui list command\n")
 
-main()
+parser = argparse.ArgumentParser(description='Mengakses folder database')
+parser.add_argument('folder', type=checker)
+ 
+prs = parser.parse_args()
+folder = prs.folder
+print("Selamat datang di OWCA")
+print(folder)
+sleep(3)
+main(folder)

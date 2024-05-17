@@ -1,47 +1,23 @@
+
+import argparse
 import os
-import sys
-def csv_parser(line):
-    s=[]
-    j=0
-    for i in range (len(line)):
-        if ','== line [i]:
-            s.append(line[j:i])
-            j=i+1
-    s.append (line[j:])
-    return s
+ 
+# function to convert the input and 
+# check the range
 
-def csvtoarr(main_path, file):
-    path = os.path.join(main_path, file)
-    user_file = open(path, 'r')
+def checker(folder):
+    data_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)),'databases')
+    isExist =  os.path.exists(os.path.join(data_path, folder))
+    if isExist == False:
+        raise argparse.ArgumentTypeError('Folder tidak ditemukan')
 
-    arr = []
-    for line in user_file:
-        inp_arr = csv_parser(line.replace('\n', ''))
-        arr.append(inp_arr)
-    arr.pop(0)
-    return arr
-
-
-def load():
-    import argparse
-    import os
-    parser = argparse.ArgumentParser()
-    parser.add_argument("folder", help="display a folder of the databases",
-                        type=str)
-    print('here')
-    sys.stderr.write(f'Tidak ada nama folder yang diberikan\n')
-    args = parser.parse_args().folder
-    
-    if args != 'data':
-        print("Folder doesn't exits")
-
-    else:
-        all_files = []
-        main_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)), args.folder)
-        for filename in os.listdir(args.folder):
-            cur_csv = csvtoarr(main_path, filename)
-            all_files.append(cur_csv)
-        return all_files
-
-
-print(load())
+ 
+ 
+parser = argparse.ArgumentParser(
+    description='Processing integers in range 5 to 15')
+ 
+# passing the function for 'type' parameter
+parser.add_argument('<folder>', type=checker)
+ 
+res = parser.parse_args()
+print("Sukses")
