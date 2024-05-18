@@ -11,15 +11,17 @@ def checker(folder):
 
 
 def main(folder):
-    from src.account_regist import login, sign_up, logout, save
-    from src.texts import intro, exited
+    from src.account_regist import login, sign_up, logout, save, exited
+    from src.texts import intro
     from src.parsers import csvtoarr
     from src.laboratory import lab
     from src.battle import battle
     from src.help import help
     from src.shop import shop
     from src.arena import arena
+    from src.inventory import inventory
     from src.monstermanagement import monster_management
+    from src.shopmanagement import shop_management
     import os
     
     user_arr = csvtoarr(folder, 'user.csv')
@@ -59,6 +61,9 @@ def main(folder):
                 item_inventory_arr.append([new_player['user'][0], 'resilience', 0])
                 item_inventory_arr.append([new_player['user'][0], 'healing', 0])
         
+        elif operation == "SHOP_MANAGE": #checked
+            shop_management(login_state, player_role, monster_shop_arr, item_shop_arr, monster_arr)
+        
         elif operation == "LAB": #checked
             after_lab_state = lab(monster_arr, monster_inventory_arr, player_oc, player_id)
             if login_state == 1:
@@ -90,8 +95,11 @@ def main(folder):
                 player_role = logout_info[3]
                 login_state = logout_info[5]
         
+        elif operation == "INVENTORY":
+            inventory(player_id, monster_inventory_arr, item_inventory_arr, player_oc, monster_arr, player_role)
+        
         elif operation == "EXIT": #checked
-            exited()
+            exited(item_inventory_arr, item_shop_arr, monster_inventory_arr, monster_shop_arr, monster_arr, item_inventory_arr, user_arr, player_id, player_oc)
         
         elif operation == "CEK":
             print(user_arr)
@@ -99,8 +107,10 @@ def main(folder):
             print(monster_arr)
             print(item_inventory_arr)
             print(player_role)
-            print(player_id)
+            print(player_id, type(player_id))
             print(player_username)
+            print(item_shop_arr)
+            print(monster_shop_arr)
 
         elif operation == "HELP": #checked
             help(login_state, player_role)
@@ -112,7 +122,7 @@ def main(folder):
             monster_management(monster_arr, player_role)
         
         elif operation == "SAVE": #checked
-            save(item_inventory_arr, item_shop_arr, monster_inventory_arr, monster_shop_arr, monster_arr, item_inventory_arr, user_arr)
+            save(item_inventory_arr, item_shop_arr, monster_inventory_arr, monster_shop_arr, monster_arr, item_inventory_arr, user_arr, player_id,player_oc)
         
         else: #checked
             print("Command tidak valid! Lupa command? ketik HELP untuk mengetahui list command\n")

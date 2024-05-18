@@ -6,7 +6,7 @@ import os
 # check the range
 
 def checker(folder):
-    data_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)),'databases')
+    data_path = os.path.join(os.path.abspath(__file__), 'databases')
     isExist =  os.path.exists(os.path.join(data_path, folder))
     if isExist == False:
         raise argparse.ArgumentTypeError('Folder tidak ditemukan')

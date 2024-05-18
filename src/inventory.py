@@ -21,9 +21,6 @@ def inventory(player_id, monster_inventory_arr, item_inventory_arr, player_oc, m
     if player_id == 'NaN':
         print('Anda belum login! ')
     
-    elif player_role == 'agent':
-        print('Agent tidak bisa mengakses inventory!')
-    
     else:
         print(f'============ INVENTORY LIST (User ID: {player_id}) ============')
         print(f'Jumlah O.W.C.A. Coin-mu sekarang {player_oc}.')
@@ -92,14 +89,3 @@ Quantity : {item_cur_arr[player_input][1]}''')
                 print('Anda akan dikembalikan ke halaman utama!')
                 break
             
-monster_arr = [[1,'python',20,20,110], [2,'java',30,20,90], [3,'jigglypuff',33,30,82]]
-login_state = 1 
-player_role = 'admin'
-player_id = 2
-player_oc = 500
-monster_shop_arr = [[1,10,100], [3,10,800]]
-item_shop_arr = [[1, 'strength', 10, 100], [2, 'resilience', 10, 100], [3, 'healing', 10, 100]]
-monster_inventory_arr = [[2,1,1], [2,2,2], [3,2,1], [2,4,5]]
-item_inventory_arr = [[1,'strength',5],[2,'resilience',5], [3,'healing',5], [2,'monster ball',2]]
-
-inventory(player_id, monster_inventory_arr, item_inventory_arr, player_oc, monster_arr)

@@ -96,10 +96,15 @@ def arrtocsv(arr, path, header_i):
                 cur_str += str(cur_sub[j])
         file.write(cur_str+'\n')
 
-def save(item_inventory_arr, item_shop_arr, monster_inventory_arr, monster_shop_arr, monster_arr, potion_inventory_arr, user_arr):
+def save(item_inventory_arr, item_shop_arr, monster_inventory_arr, monster_shop_arr, monster_arr, potion_inventory_arr, user_arr,player_id, player_oc):
     folder = input('Masukkan nama folder: ')
     print('saving . . . \n')
     sleep(3)
+    
+    for i in range (len(user_arr)):
+        if user_arr[i][0] == player_id:
+            user_arr[i][4] = player_oc
+    
     data_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)),'databases')
     isExist =  os.path.exists(os.path.join(data_path, folder))
     if isExist == False:
@@ -115,6 +120,27 @@ def save(item_inventory_arr, item_shop_arr, monster_inventory_arr, monster_shop_
     arrtocsv(user_arr, os.path.join(cur_dir, 'user.csv'), 6)
     print(f'Berhasil menyimpan data di folder data/{folder}!')
 
+
+def exited(item_inventory_arr, item_shop_arr, monster_inventory_arr, monster_shop_arr, monster_arr, potion_inventory_arr, user_arr,player_id, player_oc):
+    while True:
+        save_input = input('Apakah anda mau menyimpan perubahan terlebih dahulu?(y/n): ')
+        if save_input != 'y' and save_input != 'n':
+            print('Input tidak valid!\n')
+        elif save_input == 'y':
+            save(item_inventory_arr, item_shop_arr, monster_inventory_arr, monster_shop_arr, monster_arr, potion_inventory_arr, user_arr,player_id, player_oc)
+            break
+        else:
+            break
+    print("""
+__________                     __________                  
+\______   \ ___.__.  ____      \______   \ ___.__.  ____   
+ |    |  _/<   |  |_/ __ \      |    |  _/<   |  |_/ __ \  
+ |    |   \ \___  |\  ___/      |    |   \ \___  |\  ___/  
+ |______  / / ____| \___  >     |______  / / ____| \___  > 
+        \/  \/          \/             \/  \/          \/  
+                                                            
+          """)
+    exit(0)
 
 #def save(user_arr, monster_inventory_arr, item_inventory_arr, monster_arr, monster_shop_arr, item_shop_arr):
     
