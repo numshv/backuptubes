@@ -31,21 +31,3 @@ def intro():
     
     # Mau tambahin tulisan buat akses help sama cerita awal
 
-# Fungsi untuk navigasi command
-def help():
-    pass
-
-
-def exited():
-    global running_state
-    print("""
-__________                     __________                  
-\______   \ ___.__.  ____      \______   \ ___.__.  ____   
- |    |  _/<   |  |_/ __ \      |    |  _/<   |  |_/ __ \  
- |    |   \ \___  |\  ___/      |    |   \ \___  |\  ___/  
- |______  / / ____| \___  >     |______  / / ____| \___  > 
-        \/  \/          \/             \/  \/          \/  
-                                                            
-          """)
-    running_state == False
-    exit(0)

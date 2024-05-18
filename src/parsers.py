@@ -30,8 +30,8 @@ def csv_parser(line):
     s.append (line[j:])
     return s
 
-def csvtoarr(file):
-    path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)),'databases', file)
+def csvtoarr(folder, file):
+    path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)),'databases', folder, file)
     user_file = open(path, 'r')
 
     arr = []
@@ -40,31 +40,3 @@ def csvtoarr(file):
         arr.append(inp_arr)
     arr.pop(0)
     return arr
-
-def load():
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("folder", help="display a folder of the databases",
-                        type=str)
-    args = parser.parse_args()
-    print(args.folder)
-
-def appendcsv(arr, file):
-    csvtoarred = csvtoarr(file)
-    path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)),'databases', file)
-    if len(arr)>len(csvtoarred):
-        with open(path, mode='a', newline='') as file:
-            for i in range(len(csvtoarred), len(arr)):
-                row_str = ','.join(map(str, arr[i]))
-                file.write('\n' + row_str)
-
-
-def save(user_arr, monster_inventory_arr, item_inventory_arr, monster_arr, monster_shop_arr, item_shop_arr):
-    appendcsv(user_arr, 'user.csv')
-    appendcsv(monster_inventory_arr, 'monster_inventory.csv')
-    appendcsv(item_inventory_arr, 'item_inventory.csv')
-    appendcsv(monster_arr, 'monster.csv')
-    appendcsv(monster_shop_arr, 'monster_shop.csv')
-    appendcsv(item_shop_arr, 'item_shop.csv')
-    print('Semua perubahan telah berhasil tersimpan!\n')
-    time.sleep(2)

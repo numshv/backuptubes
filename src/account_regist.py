@@ -1,7 +1,5 @@
-
-# Fungsi untuk login
-
-        
+import os
+from time import sleep
 
 def login(player_username, login_state, user_arr):
     if login_state == 1:
@@ -82,6 +80,67 @@ def logout(player_username, login_state):
     else:
         print(f"Anda berhasil logout dari akun {player_username}\n")
         return['NaN', 'NaN', 'NaN', 'NaN', 0, 0]
+
+def arrtocsv(arr, path, header_i):
+    arr_header = ['user_id,type,quantity', 'type,stock,price', 'id,type,atk,def,hp', 'user_id,monster_id,level', 'monster_id,stock,price', 'user_id,type,quantity', 'id,username,password,role,oc']
+    file = open(path, 'w')
+
+    file.write(str(arr_header[header_i]) + '\n')
+    for i in range(len(arr)):
+        cur_str = ''
+        cur_sub = arr[i]
+        for j in range(len(cur_sub)):
+            if j != len(cur_sub)-1:
+                cur_str += str(cur_sub[j]) + ','
+            else:
+                cur_str += str(cur_sub[j])
+        file.write(cur_str+'\n')
+
+def save(item_inventory_arr, item_shop_arr, monster_inventory_arr, monster_shop_arr, monster_arr, potion_inventory_arr, user_arr,player_id, player_oc):
+    folder = input('Masukkan nama folder: ')
+    print('saving . . . \n')
+    sleep(3)
+    
+    for i in range (len(user_arr)):
+        if user_arr[i][0] == player_id:
+            user_arr[i][4] = player_oc
+    
+    data_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)),'databases')
+    isExist =  os.path.exists(os.path.join(data_path, folder))
+    if isExist == False:
+        os.makedirs(os.path.join(data_path, folder))
+        print(f'Membuat folder data/{folder}...\n')
+    cur_dir = os.path.join(data_path, folder)
+    arrtocsv(item_inventory_arr,os.path.join(cur_dir, 'item_inventory.csv'), 0)
+    arrtocsv(item_shop_arr, os.path.join(cur_dir, 'item_shop.csv'), 1)
+    arrtocsv(monster_inventory_arr, os.path.join(cur_dir, 'monster_inventory.csv'), 3)
+    arrtocsv(monster_shop_arr, os.path.join(cur_dir, 'monster_shop.csv'), 4)
+    arrtocsv(monster_arr, os.path.join(cur_dir, 'monster.csv'), 2)
+    arrtocsv(potion_inventory_arr, os.path.join(cur_dir, 'potion_inventory.csv'), 5)
+    arrtocsv(user_arr, os.path.join(cur_dir, 'user.csv'), 6)
+    print(f'Berhasil menyimpan data di folder data/{folder}!')
+
+
+def exited(item_inventory_arr, item_shop_arr, monster_inventory_arr, monster_shop_arr, monster_arr, potion_inventory_arr, user_arr,player_id, player_oc):
+    while True:
+        save_input = input('Apakah anda mau menyimpan perubahan terlebih dahulu?(y/n): ')
+        if save_input != 'y' and save_input != 'n':
+            print('Input tidak valid!\n')
+        elif save_input == 'y':
+            save(item_inventory_arr, item_shop_arr, monster_inventory_arr, monster_shop_arr, monster_arr, potion_inventory_arr, user_arr,player_id, player_oc)
+            break
+        else:
+            break
+    print("""
+__________                     __________                  
+\______   \ ___.__.  ____      \______   \ ___.__.  ____   
+ |    |  _/<   |  |_/ __ \      |    |  _/<   |  |_/ __ \  
+ |    |   \ \___  |\  ___/      |    |   \ \___  |\  ___/  
+ |______  / / ____| \___  >     |______  / / ____| \___  > 
+        \/  \/          \/             \/  \/          \/  
+                                                            
+          """)
+    exit(0)
 
 #def save(user_arr, monster_inventory_arr, item_inventory_arr, monster_arr, monster_shop_arr, item_shop_arr):
     
