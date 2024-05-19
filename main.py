@@ -1,19 +1,12 @@
 import argparse
 import os
 from time import sleep
-def checker(folder):
-    data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'databases')
-    isExist =  os.path.exists(os.path.join(data_path, folder))
-    if isExist == False:
-        print(data_path)
-        raise argparse.ArgumentTypeError('Folder tidak ditemukan')
-    return folder
 
 
 def main(folder):
-    from src.account_regist import login, sign_up, logout, save, exited
+    from src.account_regist import login, register, logout, save, exited
     from src.texts import intro
-    from src.parsers import csvtoarr
+    from src.parsers import csvtoarr, RNG
     from src.laboratory import lab
     from src.battle import battle
     from src.help import help
@@ -53,7 +46,7 @@ def main(folder):
                 login_state = user_info[5]
             
         elif operation == "REGISTER": #checked
-            new_player = sign_up(user_arr, player_id, monster_arr)
+            new_player = register(user_arr, player_id, monster_arr)
             if login_state == 0:
                 user_arr.append(new_player['user'])
                 monster_inventory_arr.append(new_player['mons_inv'])
@@ -72,7 +65,7 @@ def main(folder):
         
         elif operation == "BATTLE":
             if login_state == 1:
-                oc_reward = battle(monster_arr, monster_inventory_arr, player_id, item_inventory_arr, player_oc)
+                oc_reward = battle(monster_arr, monster_inventory_arr, player_id, item_inventory_arr, player_oc,player_role)
                 player_oc = int(oc_reward)
                 print('Anda telah kembali di halaman utama OWCA, ketik "HELP" Kalau lupa command!\n')
             else:
@@ -101,6 +94,9 @@ def main(folder):
         elif operation == "EXIT": #checked
             exited(item_inventory_arr, item_shop_arr, monster_inventory_arr, monster_shop_arr, monster_arr, item_inventory_arr, user_arr, player_id, player_oc)
         
+        elif operation == 'RNG':
+            print(RNG(0, 2))
+        
         elif operation == "CEK":
             print(user_arr)
             print(monster_inventory_arr)
@@ -127,12 +123,21 @@ def main(folder):
         else: #checked
             print("Command tidak valid! Lupa command? ketik HELP untuk mengetahui list command\n")
 
-parser = argparse.ArgumentParser(description='Mengakses folder database')
-parser.add_argument('folder', type=checker)
- 
-prs = parser.parse_args()
-folder = prs.folder
-print("Selamat datang di OWCA")
-print(folder)
-sleep(3)
-main(folder)
+def checker(folder):
+    data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'databases')
+    isExist =  os.path.exists(os.path.join(data_path, folder))
+    if isExist == False:
+        raise argparse.ArgumentTypeError('Folder tidak ditemukan')
+    return folder
+
+def load():
+    parser = argparse.ArgumentParser(description='Mengakses folder database')
+    parser.add_argument('folder', type=checker)
+    
+    prs = parser.parse_args()
+    folder = prs.folder
+    print("Selamat datang di OWCA")
+    sleep(3)
+    main(folder)
+
+load()

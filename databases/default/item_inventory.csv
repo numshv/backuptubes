@@ -2,3 +2,6 @@ user_id,type,quantity
 2,strength,2
 2,resilience,2
 2,healing,1
+4,strength,0
+4,resilience,0
+4,healing,0

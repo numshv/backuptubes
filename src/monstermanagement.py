@@ -69,14 +69,16 @@ def monster_management(monster_arr:list, player_role:str):
                             print('Type/nama sudah ada! \n')
                     
                     while True:
-                        try:
-                            input_atk = int(input('Masukkan power ATK monster baru: '))
+                        
+                        input_atk_str = input('Masukkan power ATK monster baru: ')
+                        if is_int(input_atk_str) == True:
+                            input_atk = int(input_atk_str)
                             if 0 < input_atk <=50:
                                 new_atk = input_atk
                                 break
                             else:
-                                print('DEF harus dalam range nilai 0 sampai 50')
-                        except ValueError:
+                                print('ATK harus dalam range nilai 0 sampai 50')
+                        else:
                             print('Input harus berupa integer')
                         
                     while True:

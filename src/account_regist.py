@@ -28,7 +28,7 @@ def login(player_username, login_state, user_arr):
 
 
 # Fungsi untuk sign up
-def sign_up(user_arr, player_id, monster_arr):
+def register(user_arr, player_id, monster_arr):
     if player_id != 'NaN':
         print('Anda sudah login!')
     
@@ -67,7 +67,8 @@ def sign_up(user_arr, player_id, monster_arr):
                     add_user_arr = [len(user_arr)+1, username, password, 'agent', 0]
                     add_mons_inv_arr = [len(user_arr)+1, picked_monster, 1]
                     print(f'Anda berhasil membuat akun {username}, silahkan lanjut LOGIN untuk masuk ke dalam akun dan mulai bermain!\n')
-                    return {'user': add_user_arr, 'mons_inv': add_mons_inv_arr}
+                    regist_dict = {'user': add_user_arr, 'mons_inv': add_mons_inv_arr}
+                    return regist_dict
                 
                 else:
                     print('Password hanya boleh mengandung huruf, angka, strip (-), dan underscore (_), silahkan ulangi\n')

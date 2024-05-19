@@ -2,3 +2,4 @@ id,username,password,role,oc
 1,tes1,tes1,agent,100
 2,tes7,tes7,agent,200
 3,tes8,tes8,admin,200
+4,tes9,tes9,agent,0

@@ -8,17 +8,16 @@ def generate_seed():
     seed = pid ^ timestamp ^ constant
     return seed
 
-def linear_congruential_generator(seed, a=1664525, c=1013904223, m=2**32):
+def LCG(seed, a=1664525, c=1013904223, m=2**32):
     while True:
         seed = (a * seed + c) % m
         yield seed
 
 def RNG(min_num, max_num):
-    seed = generate_seed()
-    lcg = linear_congruential_generator(seed)
+    lcg = LCG(generate_seed())
     next(lcg)  # Discard the first number to avoid getting the same number on each call
-    scaled = min_num + next(lcg) % (max_num - min_num + 1)
-    return scaled
+    rand_num = min_num + next(lcg) % (max_num - min_num + 1)
+    return rand_num
 
 def csv_parser(line):
     s=[]

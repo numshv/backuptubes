@@ -3,6 +3,89 @@ from time import sleep
 from src.rng import RNG
 from os import system
 
+mons_1 = '''                               
+      .-"-.
+    _/_-.-_\_
+   / __} {__ \\
+  / //  "  \\  \\
+ /  \\     //   \\
+/    '.___.'    \\
+\     /__\     /
+ \___/____\___/                  
+'''
+
+mons_2 = '''
+    =/\                 /\=
+    / \'._   (\_/)   _.'/ \\
+   / .''._'--(o.o)--'_.''. \\
+  /.' _/ |`'=/ " \='`| \_ `.\\
+ /` .' `\;-,'\___/',-;/` '. '\\
+/.-'       `\(-V-)/`       `-.\\
+`            "   "            `
+'''
+
+mons_3 = '''
+                           <\              _
+                            \\          _/{
+                     _       \\       _-   -_
+                   /{        / `\   _-     - -_
+                 _~  =      ( @  \ -        -  -_
+               _- -   ~-_   \( =\ \           -  -_
+             _~  -       ~_ | 1 :\ \      _-~-_ -  -_
+           _-   -          ~  |V: \ \  _-~     ~-_-  -_
+        _-~   -            /  | :  \ \            ~-_- -_
+     _-~    -   _.._      {   | : _-``               ~- _-_
+  _-~   -__..--~    ~-_  {   : \:}
+=~__.--~~              ~-_\  :  /
+                           \ : /__
+                          //`Y'--\\      
+                         <+       \\
+                          \\      WWW
+                          MMM
+'''
+
+mons_4 = '''
+ .             _.--._       /|
+        .    .'()..()`.    / /
+            ( `-.__.-' )  ( (    .
+   .         \        /    \ \\
+       .      \      /      ) )        .
+            .' -.__.- `.-.-'_.'
+ .        .'  /-____-\  `.-'       .
+          \  /-.____.-\  /-.
+           \ \`-.__.-'/ /\|\|           .
+          .'  `.    .'  `.
+          |/\/\|    |/\/\|
+'''
+
+mons_5 = '''
+ <>=======() 
+(/\___   /|\\          ()==========<>_
+      \_/ | \\        //|\   ______/ \)
+        \_|  \\      // | \_/
+          \|\/|\_   //  /\/
+           (oo)\ \_//  /
+          //_/\_\/ /  |
+         @@/  |=\  \  |
+              \_=\_ \ |
+                \==\ \|\_ 
+             __(\===\(  )\\
+            (((~) __(_/   |
+                 (((~) \  /
+                 ______/ /
+                 '------'
+'''
+
+mons_pict =[mons_1, mons_2, mons_3, mons_4, mons_5]
+
+def is_int(str):
+    cond = True
+    for i in range(len(str)):
+        cur_ord = ord(str[i])
+        if cur_ord < 48 or cur_ord > 57:
+            cond = False
+    return cond
+
 def print_potion(item_inventory_arr, global_id):
     j=0
     for i in range (len(item_inventory_arr)):
@@ -22,23 +105,7 @@ def battle(monster_arr:list, global_id:str, item_inventory_arr:list, player_mons
         
         sleep(1.5)
         
-        print("""
-    @@                     
-    @                     
-    @@  @%@     @@        
-    @@@ @%@@@@@@@@        
-        @@@@@@  @%  @        
-        @@@@@@  @@  @        
-        @@%@@@@@@@@@@        
-    %%%@@@@@@@@@@         
-    @@@@@@@@@@@@@@@        
-    @@@@@@@@@@@@@@@@        
-    @@@@ @@@@@@@@@@@@@       
-@@@@  @@@@@     @@@@      
-@@@    @@@@       @@@@    
-@@@    @@@@        @@@@   
-                                                    
-    """)
+        print(mons_pict[RNG(0,4)])
         #rand range blm di ubah ke yg buatan sendiri
         enemy_info_arr_no = monster_arr[RNG(0,len(monster_arr))]
         enemy_level = arena_level
@@ -76,21 +143,26 @@ Level     : {enemy_level}
                     """)
                 
                 
-                player_input = int(input('>>> Pilih perintah: '))
-                player_attack = 0
-                base_hp_player = player_mons_info[4]
+                player_input_no = input('>>> Pilih perintah: ')
                 
-                if player_input < 1 or player_input > 3:
-                    print('Input tidak valid')
-                
-                else:
-                    if player_input == 1:
-                        player_attack = player_mons_info[2] + (player_mons_info[2] * 0.01 * RNG(-30, 30))
-                        damage_diberi_cur = player_attack * (100 - int(enemy_info_arr[3]))*0.01
-                        damage_diberi += damage_diberi_cur
-                        enemy_info_arr[4] = floor(int(enemy_info_arr[4]) - (damage_diberi_cur))
-                        print(f'\nSCHWINKKK, {player_mons_info[1]} menyerang {enemy_info_arr[1]} !!!')
-                        print(f'''
+                if is_int(player_input_no) == True:
+                    player_input = int(player_input_no)
+                    player_attack = 0
+                    base_hp_copy = player_mons_info_no.copy()
+                    base_hp_player = int(base_hp_copy[4]) + int(float(base_hp_copy[4]) * float((player_mons_lvl-1)) * 0.1)
+                    
+                    if player_input < 1 or player_input > 3:
+                        print('Input tidak valid')
+                    
+                    else:
+                        if player_input == 1:
+                            player_attack = float(player_mons_info[2]) + (float(player_mons_info[2]) * 0.01 * RNG(-30, 30))
+                            pengali = (1 - (int(enemy_info_arr[3])*0.01))
+                            deal_damage = floor(player_attack * pengali)
+                            enemy_info_arr[4] = int(enemy_info_arr[4]) - deal_damage
+                            damage_diberi += deal_damage
+                            print(f'\nSCHWINKKK, {player_mons_info[1]} menyerang {enemy_info_arr[1]} !!!')
+                            print(f'''
 Name        : {enemy_info_arr[1]}
 ATK Power   : {enemy_info_arr[2]}
 DEF Power   : {enemy_info_arr[3]}
@@ -98,35 +170,35 @@ HP          : {enemy_info_arr[4]}
 Level       : {enemy_level}
                         ''')
 
-                        break
-                    
-                    elif player_input == 2:
-                        print('\n============ POTION LIST ============')
-                        print_potion(item_inventory_arr, global_id)
-                        print('4. Cancel \n')
-                        
-                        potion_input = int(input('>>> Pilih potion yang ingin digunakan: '))
-                        
-                        if potion_input != 4:
-                            potion_info = item_inventory_arr[potion_input-1]
-                            
-                            if potion_info[1] == 'strength' and potion_info[2] > 0:
-                                player_mons_info[2] = player_mons_info[2] + (player_mons_info[2] * 0.05)
-                                print('Setelah meminum potion ini, monster anda merasa semakin kuat!')
-                            
-                            elif potion_info[1] == 'resilience' and potion_info[2] > 0:
-                                player_mons_info[3] = player_mons_info[3] + (player_mons_info[3] * 0.05)
-                                print('Setelah meminum potion ini, monster anda merasa lebih kuat!')
-                            
-                            elif potion_info[1] == 'healing' and potion_info[2] > 0:
-                                player_mons_info[4] = player_mons_info[4] + (base_hp_player * 0.25)
-                                if player_mons_info[4] > base_hp_player:
-                                    player_mons_info[4] = base_hp_player
-                                print('Setelah meminum potion ini, monster anda merasa lebih sehat!')
                             break
+                        
+                        elif player_input == 2:
+                            print('\n============ POTION LIST ============')
+                            print_potion(item_inventory_arr, global_id)
+                            print('4. Cancel \n')
                             
-                    else:
-                        exit(0)
+                            potion_input = int(input('>>> Pilih potion yang ingin digunakan: '))
+                            
+                            if potion_input != 4:
+                                potion_info = item_inventory_arr[potion_input-1]
+                                
+                                if potion_info[1] == 'strength' and potion_info[2] > 0:
+                                    player_mons_info[2] = player_mons_info[2] + (player_mons_info[2] * 0.05)
+                                    print('Setelah meminum potion ini, monster anda merasa semakin kuat!')
+                                
+                                elif potion_info[1] == 'resilience' and potion_info[2] > 0:
+                                    player_mons_info[3] = player_mons_info[3] + (player_mons_info[3] * 0.05)
+                                    print('Setelah meminum potion ini, monster anda merasa lebih kuat!')
+                                
+                                elif potion_info[1] == 'healing' and potion_info[2] > 0:
+                                    player_mons_info[4] = player_mons_info[4] + (base_hp_player * 0.25)
+                                    if player_mons_info[4] > base_hp_player:
+                                        player_mons_info[4] = base_hp_player
+                                    print('Setelah meminum potion ini, monster anda merasa lebih sehat!')
+                                break
+                                
+                        else:
+                            exit(0)
             
             sleep(2)
             

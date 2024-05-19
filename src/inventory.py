@@ -19,7 +19,10 @@ def is_int(str):
 def inventory(player_id, monster_inventory_arr, item_inventory_arr, player_oc, monster_arr, player_role):
     
     if player_id == 'NaN':
-        print('Anda belum login! ')
+        print('Anda belum login!\n')
+    
+    elif player_role == 'admin':
+        print('Admin tidak dapat mengakses fitur ini\n')
     
     else:
         print(f'============ INVENTORY LIST (User ID: {player_id}) ============')
