@@ -134,9 +134,9 @@ Level     : {enemy_level}
         strength_used = False
         resilience_used = False
         healing_used = False
+        damage_diberi = 0
+        damage_diterima = 0
         while True:
-            damage_diberi = 0
-            damage_diterima = 0
             
             while True: #Loop turn player
                 print(f"""
@@ -164,7 +164,8 @@ Level     : {enemy_level}
                             pengali = (1 - (int(enemy_info_arr[3])*0.01))
                             deal_damage = floor(player_attack * pengali)
                             enemy_info_arr[4] = int(enemy_info_arr[4]) - deal_damage
-                            damage_diberi += deal_damage
+                            damage_diberi = int(deal_damage) + damage_diberi
+                            print(damage_diberi)
                             print(f'\nSCHWINKKK, {player_mons_info[1]} menyerang {enemy_info_arr[1]} !!!')
                             print(f'''
 Name        : {enemy_info_arr[1]}
@@ -232,6 +233,18 @@ Level       : {enemy_level}
                                 break
                                     
                         if player_input == 3:
+                            print(f'Yahh, anda dikalahkan monster {enemy_info_arr[1]} !!!')
+                            print(f'\nGAME OVER! Sesi latihan berakhir pada stage {arena_level}')
+                            
+                            # Print stats
+                            
+                            print('============== STATS ==============')
+                            print(f'Total hadiah      : {oc_reward} OC')
+                            print(f'Jumlah stage      : {arena_level}')
+                            print(f'Damage diberikan  : {damage_diberi}')
+                            print(f'Damage diterima   : {damage_diterima}')
+                            lose = True
+                            sleep(2.5)
                             return oc_reward
                             
                 else:
@@ -271,7 +284,8 @@ Level       : {enemy_level}
             enemy_attack = float(enemy_info_arr[2]) + (float(enemy_info_arr[2]) * 0.01 * RNG(-30, 30))
             pengali = (1 - (int(player_mons_info[3])*0.01))
             deal_damage = floor(enemy_attack * pengali)
-            damage_diterima += deal_damage
+            damage_diterima = int(deal_damage) + damage_diterima
+            print(damage_diterima)
             player_mons_info[4] = int(player_mons_info[4]) - deal_damage
             
             sleep(2)

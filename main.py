@@ -74,7 +74,7 @@ def main(folder):
         
         elif operation == "ARENA":
             if login_state == 1:
-                oc_reward_arena = arena(monster_inventory_arr, player_id, monster_arr, item_inventory_arr)
+                oc_reward_arena = arena(monster_inventory_arr, player_id, monster_arr, item_inventory_arr,player_role)
                 player_oc = str(int(player_oc) + oc_reward_arena)
             else:
                 print('Anda belum login!\n')

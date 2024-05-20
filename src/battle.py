@@ -98,9 +98,11 @@ def print_potion(item_inventory_arr, player_id, player_item_inv_arr:list):
 def battle(monster_arr:list, monster_inventory_arr:list, global_id:str, item_inventory_arr:list, oc_player:int, player_role):
     if global_id == 'NaN':
         print('Anda belum login!, silahkan ketik perintah LOGIN untuk login ke akun anda\n')
+        return oc_player
 
     elif player_role == 'admin':
         print('Admin tidak dapat mengakses fitur ini.')
+        return oc_player
     
     else:
         
