@@ -30,7 +30,7 @@ def shop_management(login_state, player_role, monster_shop_arr:list, item_shop_a
                     print('\n ID |     TYPE     | ATK POWER | DEF POWER |  HP  | STOK | HARGA ')
                     for i in range(len(monster_shop_arr)):
                         monster_id = int(monster_shop_arr[i][0])
-                        print(f' {monster_id}  | {monster_arr[monster_id-1][1] + spasing(monster_arr[monster_id-1][1], 12)} | {monster_arr[monster_id-1][2]}        | {monster_arr[monster_id-1][3]}        | {str(monster_arr[monster_id-1][4]) + spasing(str(monster_arr[monster_id-1][4]), 3)}  | {str(monster_shop_arr[i][1]) + spasing(str(monster_shop_arr[i][1]), 4)} | {monster_shop_arr[i][2]}')
+                        print(f' {monster_id}  | {monster_arr[monster_id-1][1] + spasing(monster_arr[monster_id-1][1], 12)} | {monster_arr[monster_id-1][2] + spasing(monster_arr[monster_id-1][2], 9)} | {monster_arr[monster_id-1][3]+ spasing(monster_arr[monster_id-1][3], 9)} | {str(monster_arr[monster_id-1][4]) + spasing(str(monster_arr[monster_id-1][4]), 3)}  | {str(monster_shop_arr[i][1]) + spasing(str(monster_shop_arr[i][1]), 4)} | {monster_shop_arr[i][2]}')
                     break
                 
                 if player_input_lihat == 'item':
@@ -271,7 +271,7 @@ def shop_management(login_state, player_role, monster_shop_arr:list, item_shop_a
                     for i in range(len(monster_shop_arr)):
                         monster_id = monster_shop_arr[i][0] 
                         okay_id_arr.append(monster_id)
-                        print(f' {monster_id}  | {monster_arr[int(monster_id)-1][1] + spasing(monster_arr[int(monster_id)-1][1], 12)} | {monster_arr[int(monster_id)-1][2]}        | {monster_arr[int(monster_id)-1][3]}        | {str(monster_arr[int(monster_id)-1][4]) + spasing(str(monster_arr[int(monster_id)-1][4]), 3)}  | {str(monster_shop_arr[i][1]) + spasing(str(monster_shop_arr[i][1]), 4)} | {monster_shop_arr[i][2]}')
+                        print(f' {monster_id}  | {monster_arr[int(monster_id)-1][1] + spasing(monster_arr[int(monster_id)-1][1], 12)} | {monster_arr[int(monster_id)-1][2] + spasing(monster_arr[int(monster_id)-1][2], 9)} | {monster_arr[int(monster_id)-1][3] + spasing(monster_arr[int(monster_id)-1][3], 9)} | {str(monster_arr[int(monster_id)-1][4]) + spasing(str(monster_arr[int(monster_id)-1][4]), 3)}  | {str(monster_shop_arr[i][1]) + spasing(str(monster_shop_arr[i][1]), 4)} | {monster_shop_arr[i][2]}')
                     print('\n')
                     while True:
                         

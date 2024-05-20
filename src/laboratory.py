@@ -8,6 +8,14 @@ def yesorno(text):
             print('Input tidak valid!')
     return agreement
 
+def is_int(str):
+    cond = True
+    for i in range(len(str)):
+        cur_ord = ord(str[i])
+        if cur_ord < 48 or cur_ord > 57:
+            cond = False
+    return cond
+
 def lab(monster_arr, monster_inventory_arr, player_oc, global_id):
     if global_id == 'NaN':
         print('Anda belum login!, silahkan ketik perintah LOGIN untuk login ke akun anda\n')
@@ -42,11 +50,19 @@ def lab(monster_arr, monster_inventory_arr, player_oc, global_id):
             print("Level 1 -> Level 2: 200 OC\nLevel 2 -> Level 3: 300 OC\nLevel 3 -> Level 4: 600 OC\nLevel 4 -> Level 5: 950 OC")
             monster_up = -1
             while True:
-                monster_up = int(input('\n>>> Pilih monster nomor: '))
-                if monster_up <= len(monster_name):
-                    break
+                
+                monster_up_no = input('\n>>> Pilih monster nomor: ')
+                
+                if is_int(monster_up_no) == False:
+                    print('Input harus berupa integer')
+                
+                
                 else:
-                    print('Input tidak valid!')
+                    monster_up = int(monster_up_no)
+                    if 0 < monster_up <= len(monster_name):
+                        break
+                    else:
+                        print('Input tidak valid!')
 
             transaction_price = up_price[monster_level[monster_up]]
             transaction_level = monster_level[monster_up]
