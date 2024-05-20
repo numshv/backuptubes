@@ -86,12 +86,13 @@ def is_int(str):
             cond = False
     return cond
 
-def print_potion(item_inventory_arr, global_id):
+def print_potion(item_inventory_arr, player_id, player_item_inv_arr:list):
     j=0
     for i in range (len(item_inventory_arr)):
-        if item_inventory_arr[i][0] == global_id:
+        if item_inventory_arr[i][0] == player_id:
             j += 1
             print(f"{j}. {item_inventory_arr[i][1]} potion (Qty: {item_inventory_arr[i][2]})")
+            player_item_inv_arr.append(item_inventory_arr[i])
 
 def battle(monster_arr:list, global_id:str, item_inventory_arr:list, player_mons_info_no:list, player_mons_lvl):
     oc_menang = [0,100,110,120,150,160]
@@ -321,9 +322,12 @@ Level       : {player_mons_lvl}
                   """)
             break
 
-def arena(monster_inventory_arr, global_id, monster_arr, item_inventory_arr):
+def arena(monster_inventory_arr, global_id, monster_arr, item_inventory_arr, player_role):
     if global_id == 'NaN':
         print('Anda belum login!, silahkan ketik perintah LOGIN untuk login ke akun anda\n')
+    
+    elif player_role == 'admin':
+        print('Admin tidak dapat mengakses fitur ini.')
     
     else:
         

@@ -171,6 +171,7 @@ Level     : {enemy_level}
         print('\nPilih monster yang akan kamu ajak bertarung!')
         
         while True:
+
             select_number_no = input('\n>>> Pilih monster nomor: ')
             if is_int(select_number_no) == True:
                 select_number= int(select_number_no)
@@ -262,7 +263,6 @@ Level       : {enemy_level}
                                 
                                 if is_int(potion_input_no) ==True:
                                     potion_input = int(potion_input_no)
-                                    print(len(player_item_inv_arr))
                                     if 0<potion_input<len(player_item_inv_arr)+2:
                                         if 0<potion_input<len(player_item_inv_arr)+1:
                                             potion_info = player_item_inv_arr[potion_input-1]
