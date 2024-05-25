@@ -41,7 +41,7 @@ def monster_management(monster_arr:list, player_role:str):
                     print('\n')
                     print('ID |    TYPE    | ATK POWER | DEF POWER |  HP  ')
                     for i in range (len(monster_arr)):
-                        print(f' {monster_arr[i][0]} | {monster_arr[i][1] + spasing(monster_arr[i][1], 10)} | {monster_arr[i][2]}        | {monster_arr[i][3]}        | {monster_arr[i][4]}')
+                        print(f' {monster_arr[i][0]} | {monster_arr[i][1] + spasing(str(monster_arr[i][1]), 10)} | {str(monster_arr[i][2]) + spasing(str(monster_arr[i][2]), 9)} | {str(monster_arr[i][3]) + spasing(str(monster_arr[i][3]), 9)} | {monster_arr[i][4]}')
                     print('\n')
                     
                 elif player_input == 2:

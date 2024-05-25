@@ -141,6 +141,9 @@ __________                     __________
         \/  \/          \/             \/  \/          \/  
                                                             
           """)
+    sleep(2)
+    os.sys("cls")
+    sleep(2)
     exit(0)
 
 #def save(user_arr, monster_inventory_arr, item_inventory_arr, monster_arr, monster_shop_arr, item_shop_arr):

@@ -98,9 +98,11 @@ def print_potion(item_inventory_arr, player_id, player_item_inv_arr:list):
 def battle(monster_arr:list, monster_inventory_arr:list, global_id:str, item_inventory_arr:list, oc_player:int, player_role):
     if global_id == 'NaN':
         print('Anda belum login!, silahkan ketik perintah LOGIN untuk login ke akun anda\n')
+        return oc_player
 
     elif player_role == 'admin':
         print('Admin tidak dapat mengakses fitur ini.')
+        return oc_player
     
     else:
         
@@ -171,7 +173,7 @@ Level     : {enemy_level}
         print('\nPilih monster yang akan kamu ajak bertarung!')
         
         while True:
-            exit_cond = False
+
             select_number_no = input('\n>>> Pilih monster nomor: ')
             if is_int(select_number_no) == True:
                 select_number= int(select_number_no)
@@ -259,56 +261,63 @@ Level       : {enemy_level}
                             
                             while True:
                                 potion_input_no = input('>>> Pilih potion yang ingin digunakan: ')
+                                cond_potion_done = False
                                 
                                 if is_int(potion_input_no) ==True:
                                     potion_input = int(potion_input_no)
-                                    if 0<potion_input<len(player_item_inv_arr)+1:
-                                        potion_info = player_item_inv_arr[potion_input-1]
-                                        print(potion_info)
-                                        if potion_info[1] == 'strength' and int(potion_info[2]) > 0 and strength_used == False:
-                                            player_mons_info[2] = floor(float(player_mons_info[2]) + (float(player_mons_info[2]) * 0.05))
-                                            potion_info[2] -= 1
-                                            strength_used= True
-                                            print('Setelah meminum potion ini, monster anda merasa semakin kuat!')
+                                    if 0<potion_input<len(player_item_inv_arr)+2:
+                                        if 0<potion_input<len(player_item_inv_arr)+1:
+                                            potion_info = player_item_inv_arr[potion_input-1]
+                                            if potion_info[1] == 'strength' and int(potion_info[2]) > 0 and strength_used == False:
+                                                player_mons_info[2] = floor(float(player_mons_info[2]) + (float(player_mons_info[2]) * 0.05))
+                                                potion_info[2] = int(potion_info[2])-1
+                                                strength_used= True
+                                                cond_potion_done= True
+                                                print('Setelah meminum potion ini, monster anda merasa semakin kuat!')
+                                            
+                                            elif potion_info[1] == 'resilience' and int(potion_info[2]) > 0 and resilience_used == False:
+                                                player_mons_info[3] = floor(float(player_mons_info[3]) + (float(player_mons_info[3]) * 0.05))
+                                                potion_info[2] = int(potion_info[2])-1
+                                                resilience_used = True
+                                                cond_potion_done = True
+                                                print('Setelah meminum potion ini, monster anda merasa lebih kuat!')
+                                            
+                                            elif potion_info[1] == 'healing' and int(potion_info[2]) > 0 and healing_used == False:
+                                                healed = floor(float(base_hp_player) * 0.25)
+                                                player_mons_info[4] = int(player_mons_info[4]) + healed
+                                                if player_mons_info[4] > base_hp_player:
+                                                    player_mons_info[4] = base_hp_player
+                                                potion_info[2] = int(potion_info[2])-1
+                                                healing_used = True
+                                                cond_potion_done = True
+                                                print('Setelah meminum potion ini, monster anda merasa lebih sehat!')
+                                        else:
+                                            break
+                                            
                                         
-                                        elif potion_info[1] == 'resilience' and int(potion_info[2]) > 0 and resilience_used == False:
-                                            player_mons_info[3] = floor(float(player_mons_info[3]) + (float(player_mons_info[3]) * 0.05))
-                                            potion_info[2] -= 1
-                                            resilience_used = True
-                                            print('Setelah meminum potion ini, monster anda merasa lebih kuat!')
-                                        
-                                        elif potion_info[1] == 'healing' and int(potion_info[2]) > 0 and healing_used == False:
-                                            healed = floor(float(base_hp_player) * 0.25)
-                                            player_mons_info[4] = int(player_mons_info[4]) + healed
-                                            if player_mons_info[4] > base_hp_player:
-                                                player_mons_info[4] = base_hp_player
-                                            potion_info[2] -= 1
-                                            healing_used = True
-                                            print('Setelah meminum potion ini, monster anda merasa lebih sehat!')
-                                        elif potion_input == len(player_item_inv_arr)+1:
-                                            pass
-                                        break
+                                        if cond_potion_done == True:
+                                            break
+                                        if cond_potion_done == False and 0<potion_input<len(player_item_inv_arr)+1:
+                                            print('Tidak dapat menggunakan potion yang sama lebih dari satu kali')
                                     
                                     else:
                                         print('Input tidak valid')
                                 else:
                                     print('Input harus berupa integer.')
+                            if cond_potion_done == True:
+                                break
                                     
                         if player_input == 3:
-                            exit_cond = True
-                            break
+                            return oc_player
+                            
                 else:
                     print('Input harus berupa integer')
-                    
-            if exit_cond == True:
-                print('Keluar dari arena, kembali ke halaman utama.')
-                break
             
             sleep(2)
             
             # If menang
             
-            if enemy_info_arr[4] <= 0:
+            if int(enemy_info_arr[4]) <= 0:
                 oc_reward = RNG(50, 100)
                 print(f'Selamat, Anda berhasil mengalahkan monster {enemy_info_arr[1]} !!!')
                 print(f'Total OC yang didapatkan {oc_reward}')
